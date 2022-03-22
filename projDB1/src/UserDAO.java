@@ -111,8 +111,8 @@ String sql1 = "CREATE TABLE User " +
                    " PRIMARY KEY ( Email ))";
 String sql2 = "CREATE TABLE Transactions " +
                     
-    			   " (From VARCHAR(30), " +
-    			   " When DATETIME,"+
+    			   " (Email VARCHAR(30), " +
+    			   " timeOfTrans DATETIME,"+
                    " PPSPrice DOUBLE, " +
                    " amount DOUBLE,"+
                    " transferID VARCHAR(20),"+
@@ -206,7 +206,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(us10);
 	      
 	      
-	    String transferInsert = "insert into Transactions(From, When, PPSPrice, amount, transferID) values ";
+	    String transferInsert = "insert into Transactions(Email, timeOfTrans, PPSPrice, amount, transferID) values ";
 	    
 	    String tr1 = transferInsert +"(\"pf@gmail.com\", \"2022-03-8 05:45:22\", \"2.3\",\"120\",\"59150e43468fea17\")";
 		String tr2 = transferInsert +"(\"ab34@gmail.com\", \"2022-03-8 04:45:22\", \"2.1\",\"88\",\"d3ff8769940ec23f\")";
