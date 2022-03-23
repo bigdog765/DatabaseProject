@@ -133,7 +133,8 @@ String sql3 = "CREATE TABLE Tip " +
 
 String sql4 = "CREATE TABLE Follows " +
         
-    			   " (Email VARCHAR(30), " +
+    			   " (followerEmail VARCHAR(30), " +
+    			   " (followeeEmail VARCHAR(30), " +
                    " PRIMARY KEY ( Email ),"+
                    " FOREIGN KEY ( email ) REFERENCES User(Email))";
 String sql5 = "CREATE TABLE Post " +
@@ -254,18 +255,18 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 		      statement.executeUpdate(tp9);
 		      statement.executeUpdate(tp10);
 		    
-		      String followsInsert = "insert into Follows(Email) values ";
+		      String followsInsert = "insert into Follows(followerEmail, followeeEmail) values ";
 			    
-			    String f1 = followsInsert +"(\"pf@gmail.com\")";
-				String f2 = followsInsert +"(\"ab34@gmail.com\")";
-				String f3 = followsInsert +"(\"yu33@outlook.com\")";
-				String f4 = followsInsert +"(\"jen_t@gmail.com\")";
-				String f5 = followsInsert +"(\"hy88@yahoo.com\")";
-				String f6 = followsInsert +"(\"emp555@wayne.edu\")";
-				String f7 = followsInsert +"(\"gary88@gmail.com\")";
-				String f8 = followsInsert +"(\"johndata@outlook.com\")";
-				String f9 = followsInsert +"(\"sql123@gmail.com\")";
-				String f10 = followsInsert +"(\"klkg6543@wayne.edu\")";
+			    String f1 = followsInsert +"(\"pf@gmail.com\", \"ab34@gmail.com\")";
+				String f2 = followsInsert +"(\"ab34@gmail.com\", \"jen_t@gmail.com\")";
+				String f3 = followsInsert +"(\"yu33@outlook.com\", \"hy88@yahoo.com\")";
+				String f4 = followsInsert +"(\"jen_t@gmail.com\", \"sql123@gmail.com\")";
+				String f5 = followsInsert +"(\"hy88@yahoo.com\", \"gary88@gmail.com\")";
+				String f6 = followsInsert +"(\"emp555@wayne.edu\", \"hy88@yahoo.com\")";
+				String f7 = followsInsert +"(\"gary88@gmail.com\", \"yu33@outlook.com\")";
+				String f8 = followsInsert +"(\"johndata@outlook.com\", \"johndata@outlook.com\")";
+				String f9 = followsInsert +"(\"sql123@gmail.com\", \"hy88@yahoo.com\")";
+				String f10 = followsInsert +"(\"klkg6543@wayne.edu\", \"jen_t@gmail.com\")";
 				  statement.executeUpdate(f1);
 			      statement.executeUpdate(f2);
 			      statement.executeUpdate(f3);
