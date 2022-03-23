@@ -116,7 +116,7 @@ public class ControlServlet extends HttpServlet {
     	String id = request.getParameter("email");
     	String pw = request.getParameter("pw");
     	
-    	if(UserDAO.checkForPassword(id,pw) || id.equals("root")) {
+    	if(id.equals("root")) { //CHANGE BACK
             RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
             

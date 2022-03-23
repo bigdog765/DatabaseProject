@@ -61,7 +61,7 @@ public class UserDAO {
     	connect_func();
     	try {
     		String sql1 = "DROP TABLE IF EXISTS User";
-    		String sql2 = "DROP TABLE IF EXISTS Transfer";
+    		String sql2 = "DROP TABLE IF EXISTS Transactions";
     		String sql3 = "DROP TABLE IF EXISTS Tip";
     		
     		String sql4 = "DROP TABLE IF EXISTS Follows";
@@ -111,14 +111,14 @@ String sql1 = "CREATE TABLE User " +
                    " PRIMARY KEY ( Email ))";
 String sql2 = "CREATE TABLE Transactions " +
                     
-    			   " (Email VARCHAR(30), " +
-    			   " recipient VARCHAR(30), " +
+    			   " (SenderEmail VARCHAR(30), " +
+    			   " ReceiverEmail VARCHAR(30), " +
     			   " timeOfTrans DATETIME,"+
     			   " PPSAmount DOUBLE," +
-                   " amount DOUBLE,"+
+                   " usdAmount DOUBLE,"+
                    " transferID VARCHAR(20),"+
                    " PRIMARY KEY ( transferID ),"+
-                   " FOREIGN KEY ( email ) REFERENCES User(Email))";
+                   " FOREIGN KEY ( SenderEmail ) REFERENCES User(Email))";
 
 String sql3 = "CREATE TABLE Tip " +
         
@@ -134,9 +134,9 @@ String sql3 = "CREATE TABLE Tip " +
 String sql4 = "CREATE TABLE Follows " +
         
     			   " (followerEmail VARCHAR(30), " +
-    			   " (followeeEmail VARCHAR(30), " +
-                   " PRIMARY KEY ( Email ),"+
-                   " FOREIGN KEY ( email ) REFERENCES User(Email))";
+    			   " followeeEmail VARCHAR(30), " +
+                   " PRIMARY KEY ( followerEmail ),"+
+                   " FOREIGN KEY ( followerEmail ) REFERENCES User(Email))";
 String sql5 = "CREATE TABLE Post " +
         
     			   " (Email VARCHAR(30), " +
@@ -208,7 +208,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(us10);
 	      
 	      
-	    String transferInsert = "insert into Transactions(Email, ReceiverEmail, timeOfTrans, PPSAmount, usdAmount, transferID) values ";
+	    String transferInsert = "insert into Transactions(SenderEmail, ReceiverEmail, timeOfTrans, PPSAmount, usdAmount, transferID) values ";
 	    
 	    String tr1 = transferInsert +"(\"pf@gmail.com\", \"hy88@yahoo.com\", \"2022-03-8 05:45:22\", \"3\", \"120\",\"59150e43468fea17\")";
 		String tr2 = transferInsert +"(\"ab34@gmail.com\", \"yu33@outlook.com\", \"2022-03-8 04:45:22\", \"10\", \"88\",\"d3ff8769940ec23f\")";

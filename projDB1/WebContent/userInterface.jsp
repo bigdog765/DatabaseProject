@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>User Interface</title>
 </head>
 <body>
-	user interface
+	<h1>user interface</h1>
+	<h2>Your Transaction Activity</h2>
+	<%
+	
+	
+	%>
+		<ol>
+			<li></li>
+		</ol>
 </body>
 </html>
