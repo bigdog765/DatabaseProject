@@ -112,8 +112,9 @@ String sql1 = "CREATE TABLE User " +
 String sql2 = "CREATE TABLE Transactions " +
                     
     			   " (Email VARCHAR(30), " +
+    			   " recipient VARCHAR(30), " +
     			   " timeOfTrans DATETIME,"+
-                   " PPSPrice DOUBLE, " +
+    			   " PPSAmount DOUBLE," +
                    " amount DOUBLE,"+
                    " transferID VARCHAR(20),"+
                    " PRIMARY KEY ( transferID ),"+
@@ -206,18 +207,18 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(us10);
 	      
 	      
-	    String transferInsert = "insert into Transactions(Email, timeOfTrans, PPSPrice, amount, transferID) values ";
+	    String transferInsert = "insert into Transactions(Email, ReceiverEmail, timeOfTrans, PPSAmount, usdAmount, transferID) values ";
 	    
-	    String tr1 = transferInsert +"(\"pf@gmail.com\", \"2022-03-8 05:45:22\", \"2.3\",\"120\",\"59150e43468fea17\")";
-		String tr2 = transferInsert +"(\"ab34@gmail.com\", \"2022-03-8 04:45:22\", \"2.1\",\"88\",\"d3ff8769940ec23f\")";
-		String tr3 = transferInsert +"(\"yu33@outlook.com\", \"2022-03-8 05:48:22\", \"2.2\",\"3\",\"21a31d3c7eb7905c\")";
-		String tr4 = transferInsert +"(\"jen_t@gmail.com\", \"2022-03-8 02:45:22\", \"2.6\",\"7\",\"9782f31962d483a4\")";
-		String tr5 = transferInsert +"(\"hy88@yahoo.com\", \"2022-03-8 05:33:22\", \"2.2\",\"88\",\"c967a86fcf1e1528\")";
-		String tr6 = transferInsert +"(\"emp555@wayne.edu\", \"2022-03-8 05:59:22\", \"2.3\",\"18\",\"b4a0b4cf6cbc1a40\")";
-		String tr7 = transferInsert +"(\"gary88@gmail.com\", \"2022-03-8 05:11:22\", \"2.6\",\"410\",\"7f3a73773836c2c2\")";
-		String tr8 = transferInsert +"(\"johndata@outlook.com\", \"2022-03-8 02:45:22\", \"2.6\",\"8\",\"ed34a8074b039c9d\")";
-		String tr9 = transferInsert +"(\"sql123@gmail.com\", \"2022-03-8 08:45:22\", \"2.7\",\"55\",\"d5cba5706d657e74\")";
-		String tr10 = transferInsert +"(\"klkg6543@wayne.edu\", \"2022-03-8 05:16:22\", \"2.1\",\"72\",\"9ad71db2e2ecd5f7\")";
+	    String tr1 = transferInsert +"(\"pf@gmail.com\", \"hy88@yahoo.com\", \"2022-03-8 05:45:22\", \"3\", \"120\",\"59150e43468fea17\")";
+		String tr2 = transferInsert +"(\"ab34@gmail.com\", \"yu33@outlook.com\", \"2022-03-8 04:45:22\", \"10\", \"88\",\"d3ff8769940ec23f\")";
+		String tr3 = transferInsert +"(\"yu33@outlook.com\", \"johndata@outlook.com\", \"2022-03-8 05:48:22\",\"20\", \"3\",\"21a31d3c7eb7905c\")";
+		String tr4 = transferInsert +"(\"jen_t@gmail.com\",\"hy88@yahoo.com\", \"2022-03-8 02:45:22\", \"12\", \"7\",\"9782f31962d483a4\")";
+		String tr5 = transferInsert +"(\"hy88@yahoo.com\", \"gary88@gmail.com\", \"2022-03-8 05:33:22\",\"15\", \"88\",\"c967a86fcf1e1528\")";
+		String tr6 = transferInsert +"(\"emp555@wayne.edu\", \"sql123@gmail.com\",\"2022-03-8 05:59:22\", \"9\", \"18\",\"b4a0b4cf6cbc1a40\")";
+		String tr7 = transferInsert +"(\"gary88@gmail.com\", \"hy88@yahoo.com\", \"2022-03-8 05:11:22\", \"7\", \"410\",\"7f3a73773836c2c2\")";
+		String tr8 = transferInsert +"(\"johndata@outlook.com\", \"hy88@yahoo.com\", \"2022-03-8 02:45:22\", \"16\", \"8\",\"ed34a8074b039c9d\")";
+		String tr9 = transferInsert +"(\"sql123@gmail.com\", \"jen_t@gmail.com\", \"2022-03-8 08:45:22\", \"11\", \"55\",\"d5cba5706d657e74\")";
+		String tr10 = transferInsert +"(\"klkg6543@wayne.edu\", \"ab34@gmail.com\", \"2022-03-8 05:16:22\", \"18\", \"72\",\"9ad71db2e2ecd5f7\")";
 		  statement.executeUpdate(tr1);
 	      statement.executeUpdate(tr2);
 	      statement.executeUpdate(tr3);
