@@ -8,13 +8,15 @@
 </head>
 <body>
 	<h1>user interface</h1>
+	<form action="activity" method="get">
 	<h2>Your Transaction Activity</h2>
 	<%
-	
+		
 	
 	%>
 		<ol>
-			<li></li>
+			<li>${tran}</li>
 		</ol>
+	</form>
 </body>
 </html>

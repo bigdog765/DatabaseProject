@@ -1,73 +1,46 @@
 
 public class Transaction {
-	protected String email;
-    protected String password;
-    protected String fName;
-    protected String lName;
-    protected int age;
-    protected double usd;
-    protected double pps;
+	protected String from;
+    protected String to;
+    protected double ppsA;
+    protected double usdA;
+    protected String when;
+    protected String type;
+    protected String id;
  
     public Transaction() {
     }
  
-    public Transaction(String from, String to,double ppsA,double usdA,String when) {
+    public Transaction(String from, String to,String when, double ppsA,double usdA,String type, String id) {
         this.from = from;
         this.to = to;
         this.ppsA = ppsA;
         this.usdA = usdA;
         this.when = when;
+        this.type = type;
+        this.id = id;
+    }
+    public String getFrom() {
+    	return from;
+    }
+    public String getTo() {
+    	return to;
+    }
+    public String getWhen() {
+    	return when;
+    }
+    public double getppsA() {
+    	return ppsA;
+    }
+    public double getusdA() {
+    	return usdA;
+    }
+    public String getType() {
+    	return type;
+    }
+    public String getID() {
+    	return id;
     }
  
     
-   
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
-    }
- 
-    public String getPassword() {
-        return password;
-    }
- 
-    public void setPassword(String password) {
-        this.password = password;
-    }
- 
-    public String getfName() {
-        return fName;
-    }
- 
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
- 
-    public String getlName() {
-        return lName;
-    }
- 
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
-    public int getAge() {
-        return age;
-    }
-    public void setAge(int age) {
-        this.age = age;
-    }
-    public double getUSD() {
-        return usd;
-    }
-    public void setUSD(double usd) {
-        this.usd = usd;
-    }
-    public double getPPS() {
-        return pps;
-    }
-    public void setPPS(double pps) {
-        this.pps = pps;
-    }
 }

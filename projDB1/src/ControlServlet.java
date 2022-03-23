@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
  
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,9 +29,12 @@ import java.sql.PreparedStatement;
  */
 public class ControlServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private InitializeDB InitializeDB;
     private UserDAO UserDAO;
+    public HttpSession ses = null;
  
     public void init() {
+        InitializeDB = new InitializeDB();
         UserDAO = new UserDAO();
         System.out.println("Server started");
     }
@@ -54,9 +59,12 @@ public class ControlServlet extends HttpServlet {
             switch (action) {
             case "/userLogin": //check if username exists & if password matches
             	searchUser(request, response);
+            	getTransactions(request, response);
+            	break;
             case "/insert": //When a new user signs up
                 System.out.println("The action is: insert");
             	   insertUser(request, response);
+            	   
                 break;
             case "/initialize": //When root clicks button
                 System.out.println("The action is: initialize database");
@@ -77,7 +85,32 @@ public class ControlServlet extends HttpServlet {
     }
     
 
-    // after the data of a User are inserted, this method will be called to insert the new User into the DB
+    private void getTransactions(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException  {
+    	String user = (String)ses.getAttribute("user");
+    	System.out.println(user);
+    	
+    	ArrayList<Transaction> T = new ArrayList<Transaction>();
+    	T = UserDAO.getUserTransactions(user);
+    	
+    	for(int i = 0; i < T.size(); i++) {
+    		System.out.println(T.get(i).getFrom());
+    		System.out.println(T.get(i).getTo());
+    		System.out.println(T.get(i).getWhen());
+    		System.out.println(T.get(i).getID());
+    		System.out.println(T.get(i).getType());
+    		System.out.println(T.get(i).getppsA());
+    		System.out.println(T.get(i).getusdA());
+    		request.setAttribute("tran", T.get(i).getID());
+    		request.getRequestDispatcher("userInterface.jsp").forward(request, response);
+    		//CHANGE THISSSSSSSSSSSS PART
+    	}
+    	
+    	
+    	
+    	
+	}
+
+	// after the data of a User are inserted, this method will be called to insert the new User into the DB
     // 
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
@@ -90,7 +123,7 @@ public class ControlServlet extends HttpServlet {
         String age = request.getParameter("age");
         
         int b = Integer.parseInt(age);
-     
+        System.out.println("TESTTTT");
         User newUser = new User(id, pw, firstN, lastN, b, 0, 0);
         
         int dup = UserDAO.insert(newUser); //this method will return -1 if a duplicate username is detected
@@ -102,6 +135,9 @@ public class ControlServlet extends HttpServlet {
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
         else {
+        	ses = request.getSession();
+    		ses.setAttribute("user", id);
+    		
         	RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
         }
@@ -116,7 +152,9 @@ public class ControlServlet extends HttpServlet {
     	String id = request.getParameter("email");
     	String pw = request.getParameter("pw");
     	
-    	if(id.equals("root")) { //CHANGE BACK
+    	if(UserDAO.checkForPassword(id,pw) ||id.equals("root")) { //CHANGE BACK
+    		ses = request.getSession();
+    		ses.setAttribute("user", id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
             
@@ -130,21 +168,21 @@ public class ControlServlet extends HttpServlet {
     
     private void deleteTables(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException {
     	
-    	UserDAO.deleteTables();
+    	InitializeDB.deleteTables();
     	System.out.println("All tables deleted");
     	
 
     }
     private void insertTables(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException {
     	
-    	UserDAO.insertTables();
+    	InitializeDB.insertTables();
     	System.out.println("All tables inserted");
     	
 
     }
     private void insertTuples(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException {
     	
-    	UserDAO.insertTuples();
+    	InitializeDB.insertTuples();
     	System.out.println("All tuples inserted");
     	request.setAttribute("ins", "All tables have been reset, with new tuples added");
         request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
