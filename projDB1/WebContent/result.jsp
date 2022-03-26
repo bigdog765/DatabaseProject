@@ -12,12 +12,12 @@
 		<h1>Login Result</h1>
 
     
-    <form action = "search" method= "GET">	
+    
         <h3 style = "color: red"> ${InvalidUN}</h3><br>
         <%
-        String un = request.getParameter("email");
-        String pw = request.getParameter("pw");
-        String pwR = request.getParameter("pwR");
+        String un = (String)session.getAttribute("user");
+        String pw = (String)session.getAttribute("pw");
+        
         
         
         if(un.equals("root")  && pw.equals("pass1234")){
@@ -38,13 +38,16 @@
         		out.println("Hello <b>"+un+"</b>!");
         		
         		
-        		%><a href = "userInterface.jsp">Sign On</a><%
+        		%>
+        			<a href ="userInterface.jsp">
+        			Sign On
+        			</a><%
     		}
         }
  
 		%>
     
     
-	</form>
+	
 	</body>
 </html>

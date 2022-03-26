@@ -58,7 +58,12 @@ public class ControlServlet extends HttpServlet {
         	
             switch (action) {
             case "/userLogin": //check if username exists & if password matches
+            	System.out.println("The action is: userLogin");
             	searchUser(request, response);
+            	
+            	break;
+            case "/trans":
+            	System.out.println("The action is: get transactions");
             	getTransactions(request, response);
             	break;
             case "/insert": //When a new user signs up
@@ -100,11 +105,20 @@ public class ControlServlet extends HttpServlet {
     		System.out.println(T.get(i).getType());
     		System.out.println(T.get(i).getppsA());
     		System.out.println(T.get(i).getusdA());
-    		request.setAttribute("tran", T.get(i).getID());
-    		request.getRequestDispatcher("userInterface.jsp").forward(request, response);
+    		ses.setAttribute("tranFrom", T.get(i).getFrom());
+    		ses.setAttribute("tranTo", T.get(i).getTo());
+    		ses.setAttribute("tranWhen", T.get(i).getWhen());
+    		ses.setAttribute("tranID", T.get(i).getID());
+    		ses.setAttribute("tranpps", T.get(i).getppsA());
+    		ses.setAttribute("tranusd", T.get(i).getusdA());
+    		
+    		
+    		//request.getRequestDispatcher("userInterface.jsp").forward(request, response);
     		//CHANGE THISSSSSSSSSSSS PART
     	}
+    	request.setAttribute("tran", T);
     	
+    	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
     	
     	
     	
@@ -155,6 +169,7 @@ public class ControlServlet extends HttpServlet {
     	if(UserDAO.checkForPassword(id,pw) ||id.equals("root")) { //CHANGE BACK
     		ses = request.getSession();
     		ses.setAttribute("user", id);
+    		ses.setAttribute("pw", pw);
             RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
             
@@ -162,6 +177,7 @@ public class ControlServlet extends HttpServlet {
         else {
         	request.setAttribute("InvalidUN", "Username and/or password is invalid");
         	request.getRequestDispatcher("login.jsp").forward(request, response);
+        	
         }
     }
     
