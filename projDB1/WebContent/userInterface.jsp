@@ -67,5 +67,8 @@
 		<button type="submit" value="Sell">Sell PPS to Root</button><br>
 		<h3 style = "color: red"> ${result}</h3><br>
 	</form>
+	
+	<h2>Access Tweet Interface</h2>
+			<a href="tweetInterface.jsp" style="text-decoration: none"; ><button>Tweet Interface</button></a>
 </body>
 </html>

@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1><strong>Tweet Interface</strong></h1>
-		<a href="tweet.jsp" style="text-decoration: none"; ><button>Post A Tweet</button></a> 
+		<a href="tweet.jsp" style="text-decoration: none"; ><button>Post A Tweet</button></a>
+		<a href="userInterface.jsp"> Back to User Interface </a>
 </body>
 </html>
