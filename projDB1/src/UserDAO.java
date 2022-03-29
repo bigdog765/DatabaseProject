@@ -267,16 +267,17 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     	
     	
     	connect_func();
-    	
+    	double currentPPSDouble = 0;
+    	double currentUSDDouble = 0;
     	statement = (Statement) connect.createStatement();
     	 ResultSet resultSet = statement.executeQuery(currentPPS);
     	 while (resultSet.next()) {
-    		 double currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
+    		 currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
          	
          }
     	 resultSet = statement.executeQuery(currentPPS);
     	 while (resultSet.next()) {
-    		 double currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
+    		 currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
          	
          }
     	
