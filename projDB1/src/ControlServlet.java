@@ -54,8 +54,6 @@ public class ControlServlet extends HttpServlet {
         System.out.println(action);
         try {
         	
-        	
-        	
             switch (action) {
             case "/userLogin": //check if username exists & if password matches
             	System.out.println("The action is: userLogin");
@@ -65,6 +63,10 @@ public class ControlServlet extends HttpServlet {
             case "/trans":
             	System.out.println("The action is: get transactions");
             	getTransactions(request, response);
+            	break;
+            case "/buyPPS":
+            	System.out.println("The action is: buy from root");
+            	buy(request, response);
             	break;
             case "/insert": //When a new user signs up
                 System.out.println("The action is: insert");
@@ -97,31 +99,35 @@ public class ControlServlet extends HttpServlet {
     	ArrayList<Transaction> T = new ArrayList<Transaction>();
     	T = UserDAO.getUserTransactions(user);
     	
+    	ses.setAttribute("numOfTrans", T.size());
     	for(int i = 0; i < T.size(); i++) {
-    		System.out.println(T.get(i).getFrom());
-    		System.out.println(T.get(i).getTo());
-    		System.out.println(T.get(i).getWhen());
-    		System.out.println(T.get(i).getID());
-    		System.out.println(T.get(i).getType());
-    		System.out.println(T.get(i).getppsA());
-    		System.out.println(T.get(i).getusdA());
-    		ses.setAttribute("tranFrom", T.get(i).getFrom());
-    		ses.setAttribute("tranTo", T.get(i).getTo());
-    		ses.setAttribute("tranWhen", T.get(i).getWhen());
-    		ses.setAttribute("tranID", T.get(i).getID());
-    		ses.setAttribute("tranpps", T.get(i).getppsA());
-    		ses.setAttribute("tranusd", T.get(i).getusdA());
     		
-    		
-    		//request.getRequestDispatcher("userInterface.jsp").forward(request, response);
-    		//CHANGE THISSSSSSSSSSSS PART
+    		ses.setAttribute("tranFrom["+ Integer.toString(i) +"]", T.get(i).getFrom());
+    		ses.setAttribute("tranTo["+ Integer.toString(i) +"]", T.get(i).getTo());
+    		ses.setAttribute("tranWhen["+ Integer.toString(i) +"]", T.get(i).getWhen());
+    		ses.setAttribute("tranID["+ Integer.toString(i) +"]", T.get(i).getID());
+    		ses.setAttribute("tranpps["+ Integer.toString(i) +"]", T.get(i).getppsA());
+    		ses.setAttribute("tranusd["+ Integer.toString(i) +"]", T.get(i).getusdA());
+    	} 	
+    	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
+	}
+    
+    
+    private void buy(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException  {
+    	String user = (String)ses.getAttribute("user");
+    	double balance = UserDAO.buy(user);
+
+    	String shares = request.getParameter("ppsShares");
+    	int s = Integer.parseInt(shares);
+    	if(balance == 0 || s * 0.01 > balance) {
+        	request.setAttribute("result", "Sorry, insufficent funds");
+            
+        }
+    	else {
+    		request.setAttribute("result", "Congrats on your purchase of " + s + " shares of PPS for " + "$"+(double)s / 100);
     	}
-    	request.setAttribute("tran", T);
     	
     	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
-    	
-    	
-    	
 	}
 
 	// after the data of a User are inserted, this method will be called to insert the new User into the DB
@@ -135,10 +141,11 @@ public class ControlServlet extends HttpServlet {
         String firstN = request.getParameter("fN");
         String lastN = request.getParameter("lN");
         String age = request.getParameter("age");
+        String zip = request.getParameter("zip");
         
         int b = Integer.parseInt(age);
         System.out.println("TESTTTT");
-        User newUser = new User(id, pw, firstN, lastN, b, 0, 0);
+        User newUser = new User(id, pw, firstN, lastN, b,zip, 0, 0);
         
         int dup = UserDAO.insert(newUser); //this method will return -1 if a duplicate username is detected
         
@@ -155,12 +162,9 @@ public class ControlServlet extends HttpServlet {
         	RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
         }
-         
-        
-        
-     
         System.out.println("insertUser finished: 11111111111111111111111111");   
     }
+    
     private void searchUser(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	String id = request.getParameter("email");

@@ -7,6 +7,7 @@ public class User {
     protected String password;
     protected String fName;
     protected String lName;
+    protected String zip;
     protected int age;
     protected double usd;
     protected double pps;
@@ -21,8 +22,8 @@ public class User {
         this.pps = pps;
     }
  
-    public User(String email, String password, String fName, String lName, int age, double usd, double pps) {
-        this.email = email; this.password = password; this.fName = fName; this.lName = lName; this.age = age;
+    public User(String email, String password, String fName, String lName, int age,String zip, double usd, double pps) {
+        this.email = email; this.password = password; this.fName = fName; this.lName = lName; this.age = age; this.zip = zip;
         this.usd = 1000;
         this.pps = 0;
     }
@@ -75,6 +76,13 @@ public class User {
     }
     public void setPPS(double pps) {
         this.pps = pps;
+    }
+    public String getZip() {
+        return zip;
+    }
+ 
+    public void setZip(String zip) {
+        this.zip = zip;
     }
     
     

@@ -95,6 +95,7 @@ String sql1 = "CREATE TABLE User " +
                    " firstName VARCHAR(20), " + 
                    " lastName VARCHAR(30), " +
                    " Age INTEGER,"+
+                   " ZipCode VARCHAR(10),"+
                    " USDAmount DOUBLE,"+
                    " PPSAmount DOUBLE,"+
                    " PRIMARY KEY ( Email ))";
@@ -162,19 +163,19 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	
 	connect_func();
 	try {
-		String userInsert = "insert into User(Email, Password, firstName, lastName, Age, USDAmount, PPSAmount) values "; 
+		String userInsert = "insert into User(Email, Password, firstName, lastName, Age, ZipCode, USDAmount, PPSAmount) values "; 
 		
-		String us0 = userInsert +"(\"root\", \"pass1234\", \"ROOT\",\"ROOT\",\"0\",\"0\",\"1000000000\")";
-		String us1 = userInsert +"(\"pf@gmail.com\", \"pass1000684\", \"Parker\",\"Collymore\",\"21\",\"1000\",\"0\")";
-		String us2 = userInsert +"(\"ab34@gmail.com\", \"pass88\", \"Abby\",\"Stoll\",\"31\",\"1000\",\"0\")";
-		String us3 = userInsert +"(\"yu33@outlook.com\", \"pass2212\", \"Jen\",\"Adler\",\"19\",\"1000\",\"0\")";
-		String us4 = userInsert +"(\"jen_t@gmail.com\", \"pass10001000\", \"Kathy\",\"Ford\",\"23\",\"1000\",\"0\")";
-		String us5 = userInsert +"(\"hy88@yahoo.com\", \"pass100062\", \"Ted\",\"Pierce\",\"88\",\"1000\",\"0\")";
-		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"1000\",\"0\")";
-		String us7 = userInsert +"(\"gary88@gmail.com\", \"pass988\", \"Gary\",\"Hayes\",\"41\",\"1000\",\"0\")";
-		String us8 = userInsert +"(\"johndata@outlook.com\", \"pass321\", \"John\",\"Wilson\",\"27\",\"1000\",\"0\")";
-		String us9 = userInsert +"(\"sql123@gmail.com\", \"pass12\", \"Jesus\",\"Christ\",\"96\",\"1000\",\"0\")";
-		String us10 = userInsert +"(\"klkg6543@wayne.edu\", \"pass46\", \"Megan\",\"Miller\",\"62\",\"1000\",\"0\")";
+		String us0 = userInsert +"(\"root\", \"pass1234\", \"ROOT\",\"ROOT\",\"0\",\"00000\",\"1000\",\"1000000000\")";
+		String us1 = userInsert +"(\"pf@gmail.com\", \"pass1000684\", \"Parker\",\"Collymore\",\"21\",\"46554\",\"1000\",\"0\")";
+		String us2 = userInsert +"(\"ab34@gmail.com\", \"pass88\", \"Abby\",\"Stoll\",\"31\",\"12543\",\"1000\",\"0\")";
+		String us3 = userInsert +"(\"yu33@outlook.com\", \"pass2212\", \"Jen\",\"Adler\",\"19\",\"46211\",\"1000\",\"0\")";
+		String us4 = userInsert +"(\"jen_t@gmail.com\", \"pass10001000\", \"Kathy\",\"Ford\",\"23\",\"33236\",\"1000\",\"0\")";
+		String us5 = userInsert +"(\"hy88@yahoo.com\", \"pass100062\", \"Ted\",\"Pierce\",\"88\",\"27269\",\"1000\",\"0\")";
+		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"68245\",\"1000\",\"0\")";
+		String us7 = userInsert +"(\"gary88@gmail.com\", \"pass988\", \"Gary\",\"Hayes\",\"41\",\"48206\",\"1000\",\"0\")";
+		String us8 = userInsert +"(\"johndata@outlook.com\", \"pass321\", \"John\",\"Wilson\",\"27\",\"33743\",\"1000\",\"0\")";
+		String us9 = userInsert +"(\"sql123@gmail.com\", \"pass12\", \"Jesus\",\"Christ\",\"96\",\"12218\",\"1000\",\"0\")";
+		String us10 = userInsert +"(\"klkg6543@wayne.edu\", \"pass46\", \"Megan\",\"Miller\",\"62\",\"81213\",\"1000\",\"0\")";
 		  statement.executeUpdate(us0);
 	      statement.executeUpdate(us1);
 	      statement.executeUpdate(us2);
@@ -186,7 +187,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(us8);
 	      statement.executeUpdate(us9);
 	      statement.executeUpdate(us10);
-	      
+
 	      
 	    String transactionInsert = "insert into Transactions(SenderEmail, ReceiverEmail, timeOfTrans, PPSAmount, USDAmount,typeofTrans, transactionID) values ";
 	    

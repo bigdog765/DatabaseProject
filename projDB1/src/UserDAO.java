@@ -69,9 +69,9 @@ public class UserDAO {
             String password = resultSet.getString("password");
             String fN = resultSet.getString("firstName");
             String lN = resultSet.getString("lastName");
-  
+            String zip = resultSet.getString("ZipCode");
              
-            User User = new User(email, password, fN, lN, age, 1000, 0);
+            User User = new User(email, password, fN, lN, age,zip, 1000, 0);
             listUser.add(User);
         }        
         resultSet.close();
@@ -140,15 +140,16 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     		return -1;
     	
     	
-		String sql = "insert into  User(email, password, firstName, lastName, age, USDAmount, PPSAmount) values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into  User(email, password, firstName, lastName, age, ZipCode, USDAmount, PPSAmount) values (?, ?, ?, ?, ?, ?, ?,?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setString(1, User.email);
 		preparedStatement.setString(2, User.password);
 		preparedStatement.setString(3, User.fName);
 		preparedStatement.setString(4, User.lName);
 		preparedStatement.setInt(5, User.age);
-		preparedStatement.setDouble(6, User.usd);
-		preparedStatement.setDouble(7, User.pps);
+		preparedStatement.setString(6, User.zip);
+		preparedStatement.setDouble(7, User.usd);
+		preparedStatement.setDouble(8, User.pps);
 //		preparedStatement.executeUpdate();
 		
         boolean rowInserted = preparedStatement.executeUpdate() > 0;
@@ -176,8 +177,9 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
             String password = resultSet.getString("password");
             String fN = resultSet.getString("firstName");
             String lN = resultSet.getString("lastName");
+            String zip = resultSet.getString("ZipCode");
              
-            User = new User(email, password, fN, lN, age,1000,0);
+            User = new User(email, password, fN, lN, age, zip, 1000,0);
             //test
         }
          
@@ -217,5 +219,21 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     	return resultList;
     	
     	
+    }
+    public double buy(String user) throws SQLException{
+    	double balance = 0;
+    	String sql1 = "SELECT * FROM User WHERE Email = \""+ user+"\"";
+    	connect_func();
+    	statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql1);
+        while (resultSet.next()) {
+        	balance = Double.parseDouble(resultSet.getString("USDAmount"));
+        	System.out.println(balance);
+        }
+        
+        
+        resultSet.close();
+        statement.close();
+        return balance;
     }
 }
