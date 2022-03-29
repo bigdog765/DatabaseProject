@@ -58,7 +58,7 @@
 		<p>Value of PPS: $0.01</p>
 		Shares to Buy: <input type="text" placeholder="Enter Amount of PPS Shares" name="ppsShares"> <br>
 		<button type="submit" value="Buy">Buy PPS from Root</button><br>
-		<h3 style = "color: red"> ${result}</h3><br>
+		<h3 style = "color: red"> ${result}</h3>
 		
 	</form>
 	<form action="sellPPS" method="get">

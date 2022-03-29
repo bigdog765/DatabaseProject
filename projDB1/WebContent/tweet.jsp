@@ -16,6 +16,6 @@
     </p>
 	<form action="trans" method="get">
 			<button type="submit" value="Post">Post</button><br>
-			<button type="submit" value="View Tweets">View Tweets</button><br>
+			<a href="tweetInterface.jsp"> Back to Tweet Interface </a>
 </body>
 </html>
