@@ -3,6 +3,7 @@
     %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
+<style><%@include file="cssScript.css"%></style>
 <html>
 <head>
 <meta charset="ISO-8859-1">
