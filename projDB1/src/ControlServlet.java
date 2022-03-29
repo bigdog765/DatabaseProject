@@ -68,6 +68,10 @@ public class ControlServlet extends HttpServlet {
             	System.out.println("The action is: buy from root");
             	buy(request, response);
             	break;
+            case "/sellPPS":
+            	System.out.println("The action is: sell to root");
+            	sell(request, response);
+            	break;
             case "/insert": //When a new user signs up
                 System.out.println("The action is: insert");
             	   insertUser(request, response);
@@ -99,16 +103,19 @@ public class ControlServlet extends HttpServlet {
     	ArrayList<Transaction> T = new ArrayList<Transaction>();
     	T = UserDAO.getUserTransactions(user);
     	
-    	ses.setAttribute("numOfTrans", T.size());
-    	for(int i = 0; i < T.size(); i++) {
-    		
-    		ses.setAttribute("tranFrom["+ Integer.toString(i) +"]", T.get(i).getFrom());
-    		ses.setAttribute("tranTo["+ Integer.toString(i) +"]", T.get(i).getTo());
-    		ses.setAttribute("tranWhen["+ Integer.toString(i) +"]", T.get(i).getWhen());
-    		ses.setAttribute("tranID["+ Integer.toString(i) +"]", T.get(i).getID());
-    		ses.setAttribute("tranpps["+ Integer.toString(i) +"]", T.get(i).getppsA());
-    		ses.setAttribute("tranusd["+ Integer.toString(i) +"]", T.get(i).getusdA());
-    	} 	
+    		ses.setAttribute("numOfTrans", T.size());
+        	for(int i = 0; i < T.size(); i++) {
+        		
+        		ses.setAttribute("tranFrom["+ Integer.toString(i) +"]", T.get(i).getFrom());
+        		ses.setAttribute("tranTo["+ Integer.toString(i) +"]", T.get(i).getTo());
+        		ses.setAttribute("tranWhen["+ Integer.toString(i) +"]", T.get(i).getWhen());
+        		ses.setAttribute("tranID["+ Integer.toString(i) +"]", T.get(i).getID());
+        		ses.setAttribute("tranpps["+ Integer.toString(i) +"]", T.get(i).getppsA());
+        		ses.setAttribute("tranusd["+ Integer.toString(i) +"]", T.get(i).getusdA());
+        		ses.setAttribute("tranType["+ Integer.toString(i) +"]", T.get(i).getType());
+        	} 	
+    	
+    	
     	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
 	}
     
@@ -119,12 +126,36 @@ public class ControlServlet extends HttpServlet {
 
     	String shares = request.getParameter("ppsShares");
     	int s = Integer.parseInt(shares);
+    	if(balance == 0 || (double)s * 0.01 > balance) {
+        	request.setAttribute("result", "Sorry, insufficent funds");
+            
+        }
+    	else {
+    		//insert this transaction into the database
+    		ses.setAttribute("tupleAdded", true);
+    		
+    		UserDAO.updateBuy(user, (double)s * 0.01);
+    		UserDAO.insertTransaction(user,"root", "-time-",s, s/100,"buy","-ID-");
+    		request.setAttribute("result", "Congrats on your purchase of " + s + " shares of PPS for " + "$"+(double)s / 100);
+    	}
+    	
+    	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
+	}
+    private void sell(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException  {
+    	String user = (String)ses.getAttribute("user");
+    	double balance = UserDAO.sell(user);
+
+    	String shares = request.getParameter("ppsSharesSell");
+    	int s = Integer.parseInt(shares);
     	if(balance == 0 || s * 0.01 > balance) {
         	request.setAttribute("result", "Sorry, insufficent funds");
             
         }
     	else {
-    		request.setAttribute("result", "Congrats on your purchase of " + s + " shares of PPS for " + "$"+(double)s / 100);
+    		//insert this transaction into the database
+    		ses.setAttribute("tupleAdded", true);
+    		UserDAO.insertTransaction("root",user, "-time-",s, s/100,"sell","-ID-");
+    		request.setAttribute("result", "Congrats on your selling of " + s + " shares of PPS. You recieved " + "$"+(double)s / 100);
     	}
     	
     	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
@@ -208,6 +239,7 @@ public class ControlServlet extends HttpServlet {
         request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
 
     }
+    
  
     
 

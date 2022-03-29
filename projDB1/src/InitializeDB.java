@@ -312,4 +312,6 @@ public void insertTuples() throws SQLException, IOException, ServletException {
         System.out.println(e);
    }
 }
+
+
 }

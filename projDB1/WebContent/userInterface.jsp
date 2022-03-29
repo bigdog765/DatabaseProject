@@ -14,7 +14,6 @@
 	<form action="trans" method="get">
 	<h2>Your Transaction Activity</h2>
 		<button type="submit" value="Trans">Show your transactions</button><br>
-
 			<% 
 			if(session.getAttribute("numOfTrans") == null){}
 			else{
@@ -26,6 +25,7 @@
 					    <th width = "200px">ID</th>
 					    <th width = "100px">PPS Amount</th>
 					    <th width = "100px">USD Amount</th>
+					    <th width = "100px">Type</th>
 					</tr><%
 				for(int i = 0; i < (int)session.getAttribute("numOfTrans"); i++){
 					String tF = (String)session.getAttribute("tranFrom["+ Integer.toString(i) +"]");
@@ -34,6 +34,7 @@
 				String tI = (String)session.getAttribute("tranID["+ Integer.toString(i) +"]");
 				Double tP = (Double)session.getAttribute("tranpps["+ Integer.toString(i) +"]");
 				Double tU = (Double)session.getAttribute("tranusd["+ Integer.toString(i) +"]");
+				String tG = (String)session.getAttribute("tranType["+ Integer.toString(i) +"]");
 				 %>
 				 <tr>
 					<td><% out.print(tF);%></td>
@@ -42,12 +43,12 @@
 					<td><% out.print(tI);%></td>
 					<td><% out.print(tP);%></td>
 					<td><% out.print(tU);%></td>
+					<td><% out.print(tG);%></td>
 				</tr>
 				<%
 	
 				}
 			}
-
 			%></table>
 			
 		
@@ -62,7 +63,9 @@
 		
 	</form>
 	<form action="sellPPS" method="get">
-		<button type="submit" value=Sell">Sell PPS to Root</button><br>
+		Shares to Sell: <input type="text" placeholder="Enter Amount of PPS Shares" name="ppsSharesSell"> <br>
+		<button type="submit" value="Sell">Sell PPS to Root</button><br>
+		<h3 style = "color: red"> ${result}</h3><br>
 	</form>
 </body>
 </html>

@@ -33,6 +33,8 @@ public class UserDAO {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
+	public Transaction t = null;
+	public ArrayList<Transaction> resultList = new ArrayList<Transaction>();
 	
 	public UserDAO() {
 
@@ -188,10 +190,28 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
          
         return User;
     }
+    public void insertTransaction(String sender, String reciever, String time, int pps, double usd, String type, String id)throws SQLException {
+    	connect_func();
+    	t = new Transaction(sender,reciever,time,pps,usd,type,id);
+    	String sql = "insert into  Transaction(SenderEmail, ReceiverEmail, timeOfTrans, PPSAmount, USDAmount, typeofTrans, transactionID) values (?, ?, ?, ?, ?, ?, ?)";
+    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+		preparedStatement.setString(1, t.getFrom());
+		preparedStatement.setString(2, t.getTo());
+		preparedStatement.setString(3, t.getWhen());
+		preparedStatement.setDouble(4, t.getppsA());
+		preparedStatement.setDouble(5, t.getusdA());
+		preparedStatement.setString(6, t.getType());
+		preparedStatement.setString(7, t.getID());
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		disconnect();
+		
+    	resultList.add(t);
+    }
     public ArrayList<Transaction> getUserTransactions(String name) throws SQLException {
   
-    	Transaction t = null;
-    	ArrayList<Transaction> resultList = new ArrayList<Transaction>();
+    	
     	String sql1 = "SELECT * FROM Transactions WHERE SenderEmail = \""+ name +"\" OR ReceiverEmail = \""+name+"\"";
     	
     	
@@ -228,6 +248,54 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
         ResultSet resultSet = statement.executeQuery(sql1);
         while (resultSet.next()) {
         	balance = Double.parseDouble(resultSet.getString("USDAmount"));
+        	System.out.println(balance);
+        }
+        
+        
+        resultSet.close();
+        statement.close();
+        return balance;
+    }
+    public void updateBuy(String user, double pps) throws SQLException{
+    	
+    	String currentPPS = "SELECT ppsAmount from User WHERE Email = \""+ user +"\"";
+    	
+    	
+    	
+    	String currentUSD = "SELECT USDAmount from User WHERE email = \""+ user +"\"";
+    	
+    	
+    	
+    	connect_func();
+    	
+    	statement = (Statement) connect.createStatement();
+    	 ResultSet resultSet = statement.executeQuery(currentPPS);
+    	 while (resultSet.next()) {
+    		 double currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
+         	
+         }
+    	 resultSet = statement.executeQuery(currentPPS);
+    	 while (resultSet.next()) {
+    		 double currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
+         	
+         }
+    	
+    	
+    	String sql = "UPDATE User SET ppsAmount = \""+ (currentPPSDouble + pps) +"\" AND usdAmount = \""+ (currentUSDDouble - (pps / 100)) +"\""
+    			+ "WHERE Email = \""+ user +"\"";
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		disconnect();
+    }
+    public double sell(String user) throws SQLException{
+    	double balance = 0;
+    	String sql1 = "SELECT * FROM User WHERE Email = \""+ user+"\"";
+    	connect_func();
+    	statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql1);
+        while (resultSet.next()) {
+        	balance = Double.parseDouble(resultSet.getString("PPSAmount"));
         	System.out.println(balance);
         }
         
