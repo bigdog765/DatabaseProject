@@ -147,16 +147,19 @@ public class ControlServlet extends HttpServlet {
 
     	String shares = request.getParameter("ppsSharesSell");
     	int s = Integer.parseInt(shares);
+    	/*
     	if(balance == 0 || s * 0.01 > balance) {
         	request.setAttribute("result", "Sorry, insufficent funds");
             
         }
+        
     	else {
+    	*/
     		//insert this transaction into the database
     		ses.setAttribute("tupleAdded", true);
     		UserDAO.insertTransaction("root",user, "-time-",s, s/100,"sell","-ID-");
     		request.setAttribute("result", "Congrats on your selling of " + s + " shares of PPS. You recieved " + "$"+(double)s / 100);
-    	}
+    	//} un comment this out !!!!
     	
     	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
 	}

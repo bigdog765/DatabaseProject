@@ -193,11 +193,11 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     public void insertTransaction(String sender, String reciever, String time, int pps, double usd, String type, String id)throws SQLException {
     	connect_func();
     	t = new Transaction(sender,reciever,time,pps,usd,type,id);
-    	String sql = "insert into  Transaction(SenderEmail, ReceiverEmail, timeOfTrans, PPSAmount, USDAmount, typeofTrans, transactionID) values (?, ?, ?, ?, ?, ?, ?)";
+    	String sql = "insert into  Transactions(SenderEmail, ReceiverEmail, timeOfTrans, PPSAmount, USDAmount, typeofTrans, transactionID) values (?, ?, ?, ?, ?, ?, ?)";
     	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setString(1, t.getFrom());
 		preparedStatement.setString(2, t.getTo());
-		preparedStatement.setString(3, t.getWhen());
+		preparedStatement.setString(3, "2022-03-8 04:45:22"); //arbitrary time
 		preparedStatement.setDouble(4, t.getppsA());
 		preparedStatement.setDouble(5, t.getusdA());
 		preparedStatement.setString(6, t.getType());
@@ -257,7 +257,7 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
         return balance;
     }
     public void updateBuy(String user, double pps) throws SQLException{
-    	
+    	System.out.println(pps);
     	String currentPPS = "SELECT ppsAmount from User WHERE Email = \""+ user +"\"";
     	
     	
@@ -275,7 +275,7 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     		 currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
          	
          }
-    	 resultSet = statement.executeQuery(currentPPS);
+    	 resultSet = statement.executeQuery(currentUSD);
     	 while (resultSet.next()) {
     		 currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
          	
@@ -284,9 +284,12 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     	
     	String sql = "UPDATE User SET ppsAmount = \""+ (currentPPSDouble + pps) +"\" AND usdAmount = \""+ (currentUSDDouble - (pps / 100)) +"\""
     			+ "WHERE Email = \""+ user +"\"";
-		
-		preparedStatement.executeUpdate();
+    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+    	preparedStatement.executeUpdate();
 		preparedStatement.close();
+		
+    	resultSet.close();
+        statement.close();
 		disconnect();
     }
     public double sell(String user) throws SQLException{
