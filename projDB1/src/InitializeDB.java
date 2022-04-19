@@ -171,10 +171,10 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 		String us3 = userInsert +"(\"yu33@outlook.com\", \"pass2212\", \"Jen\",\"Adler\",\"19\",\"46211\",\"1000\",\"0\")";
 		String us4 = userInsert +"(\"jen_t@gmail.com\", \"pass10001000\", \"Kathy\",\"Ford\",\"23\",\"33236\",\"1000\",\"0\")";
 		String us5 = userInsert +"(\"hy88@yahoo.com\", \"pass100062\", \"Ted\",\"Pierce\",\"88\",\"27269\",\"1000\",\"0\")";
-		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"68245\",\"1000\",\"0\")";
+		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"46211\",\"1000\",\"0\")";
 		String us7 = userInsert +"(\"gary88@gmail.com\", \"pass988\", \"Gary\",\"Hayes\",\"41\",\"48206\",\"1000\",\"0\")";
 		String us8 = userInsert +"(\"johndata@outlook.com\", \"pass321\", \"John\",\"Wilson\",\"27\",\"33743\",\"1000\",\"0\")";
-		String us9 = userInsert +"(\"sql123@gmail.com\", \"pass12\", \"Jesus\",\"Christ\",\"96\",\"12218\",\"1000\",\"0\")";
+		String us9 = userInsert +"(\"sql123@gmail.com\", \"pass12\", \"Jesus\",\"Christ\",\"96\",\"46211\",\"1000\",\"0\")";
 		String us10 = userInsert +"(\"klkg6543@wayne.edu\", \"pass46\", \"Megan\",\"Miller\",\"62\",\"81213\",\"1000\",\"0\")";
 		  statement.executeUpdate(us0);
 	      statement.executeUpdate(us1);

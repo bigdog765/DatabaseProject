@@ -29,6 +29,7 @@
 	Last Name: <input type="text" placeholder="Enter Last Name" name="lN"><br>
 	Zip Code: <input type="text" placeholder="Enter your Zip Code" name="zip"><br>
 	Age: <input type="text" placeholder="Enter Age" name="age"><br>
+	<h3 style = "color: red"> ${Duplicate}</h3><br>
 	<button type="submit" value="Sign Up">Sign Up</button>
 	<a href="login.jsp"> Go Back </a>&emsp;
 

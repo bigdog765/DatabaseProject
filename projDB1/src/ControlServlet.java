@@ -6,7 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
- 
+import java.util.Random;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.sql.PreparedStatement;
  
 /**
@@ -132,11 +134,16 @@ public class ControlServlet extends HttpServlet {
         }
     	else {
     		//insert this transaction into the database
-    		ses.setAttribute("tupleAdded", true);
-    		
+    		ses.setAttribute("tuples", 1);
     		UserDAO.updateBuy(user, (double)s * 0.01);
-    		UserDAO.insertTransaction(user,"root", "-time-",s, s/100,"buy","-ID-");
-    		request.setAttribute("result", "Congrats on your purchase of " + s + " shares of PPS for " + "$"+(double)s / 100);
+    		
+    		
+    		
+    		String id = String.format("%x",(int)(Math.random()*10000000)); 
+    		UserDAO.insertTransaction(user,"root", "-time-",s, s/100,"buy",id);
+    		DecimalFormat df = new DecimalFormat();
+    		df.setMaximumFractionDigits(2);
+    		request.setAttribute("resultBuy", "Congrats on your purchase of " + s + " shares of PPS for " + "$"+df.format((double)s / 100));
     	}
     	
     	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
@@ -147,21 +154,27 @@ public class ControlServlet extends HttpServlet {
 
     	String shares = request.getParameter("ppsSharesSell");
     	int s = Integer.parseInt(shares);
-    	/*
+    	
     	if(balance == 0 || s * 0.01 > balance) {
         	request.setAttribute("result", "Sorry, insufficent funds");
             
         }
         
     	else {
-    	*/
+    	
     		//insert this transaction into the database
-    		ses.setAttribute("tupleAdded", true);
-    		UserDAO.insertTransaction("root",user, "-time-",s, s/100,"sell","-ID-");
-    		request.setAttribute("result", "Congrats on your selling of " + s + " shares of PPS. You recieved " + "$"+(double)s / 100);
+    	ses.setAttribute("tuples", 1);
+    	UserDAO.updateSell(user, (double)s * 0.01);
+    		
+    		String id = String.format("%x",(int)(Math.random()*10000000)); 
+    		UserDAO.insertTransaction("root",user, "-time-",s, s/100,"sell",id);
+    		DecimalFormat df = new DecimalFormat();
+    		df.setMaximumFractionDigits(2);
+    		request.setAttribute("resultSell", "Congrats on your selling of " + s + " shares of PPS. You recieved " + "$"+df.format((double)s / 100));
     	//} un comment this out !!!!
     	
     	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
+    	}
 	}
 
 	// after the data of a User are inserted, this method will be called to insert the new User into the DB
@@ -172,6 +185,7 @@ public class ControlServlet extends HttpServlet {
      
         String id = request.getParameter("email");
         String pw = request.getParameter("pw");
+        String pwR = request.getParameter("pwR");
         String firstN = request.getParameter("fN");
         String lastN = request.getParameter("lN");
         String age = request.getParameter("age");
@@ -189,9 +203,15 @@ public class ControlServlet extends HttpServlet {
         	request.setAttribute("Duplicate", "Sorry, username already taken");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
+        else if(!pw.equals(pwR)) {
+        	request.setAttribute("Duplicate", "Sorry, passwords dont match");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
         else {
         	ses = request.getSession();
     		ses.setAttribute("user", id);
+    		ses.setAttribute("tuples", 0);
+    		ses.setAttribute("numOfTrans", 0);
     		
         	RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
@@ -208,6 +228,8 @@ public class ControlServlet extends HttpServlet {
     		ses = request.getSession();
     		ses.setAttribute("user", id);
     		ses.setAttribute("pw", pw);
+    		ses.setAttribute("tuples", 0);
+    		ses.setAttribute("numOfTrans", 0);
             RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");       
             dispatcher.forward(request, response);
             

@@ -240,6 +240,9 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
     	
     	
     }
+    
+    
+    
     public double buy(String user) throws SQLException{
     	double balance = 0;
     	String sql1 = "SELECT * FROM User WHERE Email = \""+ user+"\"";
@@ -255,42 +258,6 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
         resultSet.close();
         statement.close();
         return balance;
-    }
-    public void updateBuy(String user, double pps) throws SQLException{
-    	System.out.println(pps);
-    	String currentPPS = "SELECT ppsAmount from User WHERE Email = \""+ user +"\"";
-    	
-    	
-    	
-    	String currentUSD = "SELECT USDAmount from User WHERE email = \""+ user +"\"";
-    	
-    	
-    	
-    	connect_func();
-    	double currentPPSDouble = 0;
-    	double currentUSDDouble = 0;
-    	statement = (Statement) connect.createStatement();
-    	 ResultSet resultSet = statement.executeQuery(currentPPS);
-    	 while (resultSet.next()) {
-    		 currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
-         	
-         }
-    	 resultSet = statement.executeQuery(currentUSD);
-    	 while (resultSet.next()) {
-    		 currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
-         	
-         }
-    	
-    	
-    	String sql = "UPDATE User SET ppsAmount = \""+ (currentPPSDouble + pps) +"\" AND usdAmount = \""+ (currentUSDDouble - (pps / 100)) +"\""
-    			+ "WHERE Email = \""+ user +"\"";
-    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-    	preparedStatement.executeUpdate();
-		preparedStatement.close();
-		
-    	resultSet.close();
-        statement.close();
-		disconnect();
     }
     public double sell(String user) throws SQLException{
     	double balance = 0;
@@ -308,4 +275,92 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
         statement.close();
         return balance;
     }
+    public void updateBuy(String user, double pps) throws SQLException{ //USER BUYS PPS FROM THE ROOT
+    	System.out.println(pps);
+    	String root = "root";
+    	String currentPPS = "SELECT ppsAmount from User WHERE Email = \""+ user +"\"";
+    	String currentUSD = "SELECT USDAmount from User WHERE email = \""+ user +"\"";
+    	String RcurrentPPS = "SELECT ppsAmount from User WHERE Email = \""+ root +"\"";
+    	String RcurrentUSD = "SELECT USDAmount from User WHERE email = \""+ root +"\"";
+    	
+    	
+    	
+    	connect_func();
+    	double currentPPSDouble = 0;
+    	double currentUSDDouble = 0;
+    	double RcurrentPPSDouble = 0;
+    	double RcurrentUSDDouble = 0;
+    	System.out.println("TESTTTT");
+    	statement = (Statement) connect.createStatement();
+    	 ResultSet resultSet = statement.executeQuery(currentPPS);
+    	 while (resultSet.next()) {
+    		 currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
+         	
+         }
+    	 resultSet = statement.executeQuery(currentUSD);
+    	 while (resultSet.next()) {
+    		 currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
+         	
+         }
+    	 //root
+    	resultSet = statement.executeQuery(RcurrentPPS);
+    	 while (resultSet.next()) {
+    		 RcurrentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
+         	
+         }
+    	 resultSet = statement.executeQuery(RcurrentUSD);
+    	 while (resultSet.next()) {
+    		 RcurrentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
+         	
+         }
+    	
+    	 System.out.println("*********" +  currentPPSDouble + "******"+ currentUSDDouble);
+    	
+    	String sql1 = "UPDATE User SET PPSAmount = " +(currentPPSDouble + (pps * 100))+ ", USDAmount = " + (currentUSDDouble - pps)+ "WHERE Email = \""+ user +"\"";
+    	String sql2 = "UPDATE User SET PPSAmount = " +(RcurrentPPSDouble - (pps * 100))+ ", USDAmount = " + (RcurrentUSDDouble + pps)+ "WHERE Email = \""+ root +"\"";
+    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql1);
+    	preparedStatement.executeUpdate();
+    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql2);
+    	preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
+    	resultSet.close();
+        statement.close();
+		disconnect();
+    }
+    public void updateSell(String user, double pps) throws SQLException{
+    	System.out.println(pps);
+    	String currentPPS = "SELECT ppsAmount from User WHERE Email = \""+ user +"\"";
+    	String currentUSD = "SELECT USDAmount from User WHERE email = \""+ user +"\"";
+    	
+    	
+    	
+    	connect_func();
+    	double currentPPSDouble = 0;
+    	double currentUSDDouble = 0;
+    	System.out.println("TESTTTT");
+    	statement = (Statement) connect.createStatement();
+    	 ResultSet resultSet = statement.executeQuery(currentPPS);
+    	 while (resultSet.next()) {
+    		 currentPPSDouble = Double.parseDouble(resultSet.getString("PPSAmount"));
+         	
+         }
+    	 resultSet = statement.executeQuery(currentUSD);
+    	 while (resultSet.next()) {
+    		 currentUSDDouble = Double.parseDouble(resultSet.getString("USDAmount"));
+         	
+         }
+    	
+    	 System.out.println("*********" +  currentPPSDouble + "******"+ currentUSDDouble);
+    	
+    	String sql = "UPDATE User SET PPSAmount = " +(currentPPSDouble - (pps* 100))+ ", USDAmount = " + (currentUSDDouble + pps)+ "WHERE Email = \""+ user +"\"";
+    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+    	preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
+    	resultSet.close();
+        statement.close();
+		disconnect();
+    }
+    
 }
