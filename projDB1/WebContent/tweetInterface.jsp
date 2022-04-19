@@ -57,6 +57,7 @@
 				<td><%=resultSet.getString("Email") %></td>
 				<td><%=resultSet.getString("numOfLikes") %></td>
 				<td><%=resultSet.getString("content") %></td>
+				<td><button class="Like">Like</button></td>
 				
 				</tr>
 				
