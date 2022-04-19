@@ -42,7 +42,7 @@
 				<td><b>Email</b></td>
 				<td><b>Number of Likes</b></td>
 				<td><b>Content</b></td>
-				<td><b>    </b></td></td>
+				<td><b>            </b></td></td>
 				</tr>
 				<%
 				try{ 
