@@ -40,10 +40,9 @@
 				</tr>
 				<tr bgcolor="#FFFAF0">
 				<td><b>Email</b></td>
-				<td><b>Type</b></td>
 				<td><b>Number of Likes</b></td>
 				<td><b>Content</b></td>
-				<td><b>PostID</b></td>
+				 <tr><td><button class="Like">like</button></td></tr>
 				</tr>
 				<%
 				try{ 
@@ -57,10 +56,8 @@
 				<tr bgcolor="#DEB887">
 				
 				<td><%=resultSet.getString("Email") %></td>
-				<td><%=resultSet.getString("type") %></td>
 				<td><%=resultSet.getString("numOfLikes") %></td>
 				<td><%=resultSet.getString("content") %></td>
-				<td><%=resultSet.getString("postID") %></td>
 				
 				</tr>
 				

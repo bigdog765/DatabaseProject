@@ -239,9 +239,9 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 			      
       String postInsert = "insert into Post(Email, type, numOfLikes, content, postID) values ";
 	    
-	    String p1 = postInsert +"(\"pf@gmail.com\",\"t\", \"23\", \"Checkout this picture\",\"59150e43468fea17\")";
-		String p2 = postInsert +"(\"ab34@gmail.com\",\"v\", \"12\",\"This video!\",\"d3ff8769940ec23f\")";
-		String p3 = postInsert +"(\"yu33@outlook.com\",\"i\", \"50\",\"Look at this haha!\",\"21a31d3c7eb7905c\")";
+	    String p1 = postInsert +"(\"pf@gmail.com\",\"t\", \"23\", \"Going to pass this class for sure.\",\"59150e43468fea17\")";
+		String p2 = postInsert +"(\"ab34@gmail.com\",\"v\", \"12\",\"I am so hungry\",\"d3ff8769940ec23f\")";
+		String p3 = postInsert +"(\"yu33@outlook.com\",\"i\", \"50\",\"Github is the best!\",\"21a31d3c7eb7905c\")";
 		String p4 = postInsert +"(\"jen_t@gmail.com\",\"t\", \"30\", \"I hope this post get 31 likes\",\"9782f31965d483a4\")";
 		String p5 = postInsert +"(\"hy88@yahoo.com\",\"a\", \"1\", \"My most liked post! :D\",\"c967a86fcf151528\")";
 		String p6 = postInsert +"(\"emp555@wayne.edu\",\"a\", \"43\", \"Important Announcement\",\"b4a0b4cf6cbc1a40\")";
