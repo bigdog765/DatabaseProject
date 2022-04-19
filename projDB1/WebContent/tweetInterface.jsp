@@ -42,7 +42,6 @@
 				<td><b>Email</b></td>
 				<td><b>Number of Likes</b></td>
 				<td><b>Content</b></td>
-				 <tr><td><button class="Like">like</button></td></tr>
 				</tr>
 				<%
 				try{ 
