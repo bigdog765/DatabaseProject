@@ -47,7 +47,7 @@ public class ControlServlet extends HttpServlet {
         doGet(request, response);
         System.out.println("doPost finished: 11111111111111111111111111");
     }
- 
+ //test
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("doGet started: 000000000000000000000000000"); 
