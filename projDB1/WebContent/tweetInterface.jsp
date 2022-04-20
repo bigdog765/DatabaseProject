@@ -42,7 +42,7 @@
 				<td><b>Email</b></td>
 				<td><b>Number of Likes</b></td>
 				<td><b>Content</b></td>
-				<td><b>            </b></td></td>
+				<td><b>      Like           </b></td></td>
 				</tr>
 				<%
 				try{ 
@@ -59,7 +59,7 @@
 				<td><%=resultSet.getString("numOfLikes") %></td>
 				<td><%=resultSet.getString("content") %></td>
 				<td><button class="Like">Like</button></td>
-				
+
 				</tr>
 				
 				<% 
