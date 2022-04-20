@@ -62,10 +62,7 @@ public class ControlServlet extends HttpServlet {
             	searchUser(request, response);
             	
             	break;
-            case "/trans":
-            	System.out.println("The action is: get transactions");
-            	getTransactions(request, response);
-            	break;
+            
             case "/buyPPS":
             	System.out.println("The action is: buy from root");
             	buy(request, response);
@@ -98,28 +95,7 @@ public class ControlServlet extends HttpServlet {
     }
     
 
-    private void getTransactions(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException  {
-    	String user = (String)ses.getAttribute("user");
-    	System.out.println(user);
-    	
-    	ArrayList<Transaction> T = new ArrayList<Transaction>();
-    	T = UserDAO.getUserTransactions(user);
-    	
-    		ses.setAttribute("numOfTrans", T.size());
-        	for(int i = 0; i < T.size(); i++) {
-        		
-        		ses.setAttribute("tranFrom["+ Integer.toString(i) +"]", T.get(i).getFrom());
-        		ses.setAttribute("tranTo["+ Integer.toString(i) +"]", T.get(i).getTo());
-        		ses.setAttribute("tranWhen["+ Integer.toString(i) +"]", T.get(i).getWhen());
-        		ses.setAttribute("tranID["+ Integer.toString(i) +"]", T.get(i).getID());
-        		ses.setAttribute("tranpps["+ Integer.toString(i) +"]", T.get(i).getppsA());
-        		ses.setAttribute("tranusd["+ Integer.toString(i) +"]", T.get(i).getusdA());
-        		ses.setAttribute("tranType["+ Integer.toString(i) +"]", T.get(i).getType());
-        	} 	
-    	
-    	
-    	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
-	}
+    
     
     
     private void buy(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException  {
@@ -155,7 +131,7 @@ public class ControlServlet extends HttpServlet {
     	String shares = request.getParameter("ppsSharesSell");
     	int s = Integer.parseInt(shares);
     	
-    	if(balance == 0 || s * 0.01 > balance) {
+    	if(balance == 0 || s > balance) {
         	request.setAttribute("result", "Sorry, insufficent funds");
             
         }

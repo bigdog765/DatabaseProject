@@ -11,38 +11,79 @@
 </head>
 <body>
 	<h1><strong>User Interface</strong></h1>
-	<form action="trans" method="get">
-	<h2>Your Transaction Activity</h2>
-		<button type="submit" value="Trans">Show your transactions</button><br>
+	
+		
+		
+		
+		
+		<%@page import="java.sql.DriverManager"%>
+		<%@page import="java.sql.ResultSet"%>
+		<%@page import="java.sql.Statement"%>
+		<%@page import="java.sql.Connection"%>
+		
+		<%
+		String name = (String)session.getAttribute("user"); 
+		String driverName = "com.mysql.jdbc.Driver";
+		
+		
+		try {
+		Class.forName(driverName);
+		} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+		}
+		
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		%>
+		<h2 align="center"><font><strong>Your Transaction Activity</strong></font></h2>
+		<table align="center" cellpadding="5" cellspacing="5" border="1">
+		<tr>
+		
+		</tr>
+		<tr bgcolor="#A52A2A">
+		<td><b>Sender Email</b></td>
+		<td><b>Receiver Email</b></td>
+		<td><b>Time</b></td>
+		<td><b>PPS Amount</b></td>
+		<td><b>USD Amount</b></td>
+		<td><b>Type of Transaction</b></td>
+		<td><b>Transaction ID</b></td>
+		</tr>
+		<%
+		try{ 
+		connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?"
+		          + "useSSL=false&user=john&password=pass1234");
+		statement=connection.createStatement();
+		String sql ="SELECT * FROM transactions where SenderEmail = \""+ name +"\" OR ReceiverEmail = \""+name+"\"";
+		
+		resultSet = statement.executeQuery(sql);
+		while(resultSet.next()){
+		%>
+		<tr bgcolor="#DEB887">
+		
+		<td><%=resultSet.getString("SenderEmail") %></td>
+		<td><%=resultSet.getString("ReceiverEmail") %></td>
+		<td><%=resultSet.getString("timeOfTrans") %></td>
+		<td><%=resultSet.getString("PPSAmount") %></td>
+		<td><%=resultSet.getString("USDAmount") %></td>
+		<td><%=resultSet.getString("typeofTrans") %></td>
+		<td><%=resultSet.getString("transactionID") %></td>
+		
+		</tr>
+		
+		<% 
+		}
+		
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>
+		</table>
+		
 			
-<% 
-				 
-				 
-			if((int)session.getAttribute("tuples") == 0){
-				for(int i = 0; i < (int)session.getAttribute("numOfTrans"); i++){
-					String tF = (String)session.getAttribute("tranFrom["+ Integer.toString(i) +"]");
-				String tT = (String)session.getAttribute("tranTo["+ Integer.toString(i) +"]");
-				String tW = (String)session.getAttribute("tranWhen["+ Integer.toString(i) +"]");
-				String tI = (String)session.getAttribute("tranID["+ Integer.toString(i) +"]");
-				Double tP = (Double)session.getAttribute("tranpps["+ Integer.toString(i) +"]");
-				Double tU = (Double)session.getAttribute("tranusd["+ Integer.toString(i) +"]");
-				String tG = (String)session.getAttribute("tranType["+ Integer.toString(i) +"]");
-				 out.print(tF + "\t");
-				 out.print(tT + "\t");
-				 out.print(tW + "\t");
-				 out.print(tI + "\t");
-				 out.print(tP + "\t");
-				 out.print(tU + "\t");
-				 out.print(tG + "\t");
-				 %> <br> <%
-				}
-				session.setAttribute("tuples", 0);
-			}
-			
-					
-			
-%>		
-	</form>
+	
+
 	
 	<form action="buyPPS" method="get">
 		<h2>Buy or Sell</h2>

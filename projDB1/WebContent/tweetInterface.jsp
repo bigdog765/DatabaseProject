@@ -34,15 +34,16 @@
 				ResultSet resultSet = null;
 				%>
 				<h2 align="center"><font><strong>Tweets</strong></font></h2>
-				<table align="center" cellpadding="5" cellspacing="5" border="1">
+				<table align="center" cellpadding=auto cellspacing="5" border="1">
 				<tr>
 				
 				</tr>
 				<tr bgcolor="#FFFAF0">
+				
 				<td><b>Email</b></td>
 				<td><b>Number of Likes</b></td>
 				<td><b>Content</b></td>
-				<td><b>      Like           </b></td></td>
+				<td style="width:40%"><b></b></td></td>
 				</tr>
 				<%
 				try{ 
