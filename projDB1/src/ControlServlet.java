@@ -104,9 +104,10 @@ public class ControlServlet extends HttpServlet {
 
     	String shares = request.getParameter("ppsShares");
     	int s = Integer.parseInt(shares);
+    	System.out.println(s);
     	if(balance == 0 || (double)s * 0.01 > balance) {
-        	request.setAttribute("result", "Sorry, insufficent funds");
-            
+        	request.setAttribute("resultBuy", "Sorry, insufficent funds");
+        	System.out.println("You dont have enough money");
         }
     	else {
     		//insert this transaction into the database
@@ -131,8 +132,8 @@ public class ControlServlet extends HttpServlet {
     	String shares = request.getParameter("ppsSharesSell");
     	int s = Integer.parseInt(shares);
     	
-    	if(balance == 0 || s > balance) {
-        	request.setAttribute("result", "Sorry, insufficent funds");
+    	if(balance == 0 || (double)s > balance) {
+        	request.setAttribute("resultSell", "Sorry, insufficent funds");
             
         }
         
@@ -149,8 +150,9 @@ public class ControlServlet extends HttpServlet {
     		request.setAttribute("resultSell", "Congrats on your selling of " + s + " shares of PPS. You recieved " + "$"+df.format((double)s / 100));
     	//} un comment this out !!!!
     	
-    	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
+    	
     	}
+    	request.getRequestDispatcher("userInterface.jsp").forward(request, response);
 	}
 
 	// after the data of a User are inserted, this method will be called to insert the new User into the DB

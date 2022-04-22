@@ -34,17 +34,15 @@
 				ResultSet resultSet = null;
 				%>
 				<h2 align="center"><font><strong>Tweets</strong></font></h2>
-				<table align="center" cellpadding=auto cellspacing="5" border="1">
-				<tr>
-				
-				</tr>
+				<table align="center" cellpadding=auto cellspacing="5">
+
 				<tr bgcolor="#FFFAF0">
+
+				<td><b></b></td>
+				<td><b></b></td>
+				<td  width = '100px'><b></b></td>
+				<td style="width:40%"><b></b></td>
 				
-				<td><b>Email</b></td>
-				<td><b>Number of Likes</b></td>
-				<td><b>Content</b></td>
-				<td style="width:40%"><b></b></td></td>
-				</tr>
 				<%
 				try{ 
 				connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/testdb?" + "useSSL=false&user=john&password=pass1234");
@@ -54,12 +52,13 @@
 				resultSet = statement.executeQuery(sql);
 				while(resultSet.next()){
 				%>
-				<tr bgcolor="#DEB887">
+				<tr bgcolor="#add8e6" height = "100px">
 				
-				<td><%=resultSet.getString("Email") %></td>
-				<td><%=resultSet.getString("numOfLikes") %></td>
+				<td><%=resultSet.getString("Email") %><button class="Follow">Follow this user</button></td>
+				
 				<td><%=resultSet.getString("content") %></td>
-				<td><button class="Like">Like</button></td>
+				<td><%=resultSet.getString("numOfLikes") %> Likes </td>
+				<td><button class="Like">Like</button><button class="Comment" >Comment</button></td>
 
 				</tr>
 				

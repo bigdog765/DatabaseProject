@@ -14,7 +14,8 @@
 	
 		
 		
-		
+		<h2>Access Tweet Interface</h2>
+			<a href="tweetInterface.jsp" style="text-decoration: none"; ><button>Tweet Interface</button></a>
 		
 		<%@page import="java.sql.DriverManager"%>
 		<%@page import="java.sql.ResultSet"%>
@@ -87,19 +88,19 @@
 	
 	<form action="buyPPS" method="get">
 		<h2>Buy or Sell</h2>
-		<p>Value of PPS: $0.01</p>
-		Shares to Buy: <input type="text" placeholder="Enter Amount of PPS Shares" name="ppsShares"> <br>
+		<p>Value of PPS: $0.01 per share</p>
+		
+		Shares to Buy: <input type="text" placeholder="Enter Amount of PPS Shares" name="ppsShares"><br>
 		<button type="submit" value="Buy">Buy PPS from Root</button><br>
 		<h3 style = "color: red"> ${resultBuy}</h3>
 		
 	</form>
 	<form action="sellPPS" method="get">
-		Shares to Sell: <input type="text" placeholder="Enter Amount of PPS Shares" name="ppsSharesSell"> <br>
+		Shares to Sell: <input type="text" placeholder="Enter Amount of PPS Shares" name="ppsSharesSell"><br>
 		<button type="submit" value="Sell">Sell PPS to Root</button><br>
 		<h3 style = "color: red"> ${resultSell}</h3><br>
 	</form>
 	
-	<h2>Access Tweet Interface</h2>
-			<a href="tweetInterface.jsp" style="text-decoration: none"; ><button>Tweet Interface</button></a>
+	
 </body>
 </html>

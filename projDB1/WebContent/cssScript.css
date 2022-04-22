@@ -23,7 +23,7 @@ h2{
 
 
 input[type=text], input[type=password] {
-  width: 100%;
+  width: 15%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -64,6 +64,20 @@ tr{
 
 td {
   text-align: center;
+}
+.Like{
+   float: left;
+   width:150px;
+}
+.Comment{	
+   float: right;
+   width:150px;
+}
+.Follow{	
+	
+   
+   width:140px;
+   margin-top: 10px;
 }
 
 tr:nth-child(even) {background-color: #f2f2f2;}
