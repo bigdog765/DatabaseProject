@@ -65,7 +65,17 @@ tr{
 td {
   text-align: center;
 }
-.Like{
+#outer
+{
+    width:100%;
+    text-align: center;
+}
+.inner
+{
+	width: 200px;
+    display: inline-block;
+}
+#Like{
    float: left;
    width:150px;
 }

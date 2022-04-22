@@ -8,13 +8,19 @@
 <title>Tweet Interface</title>
 </head>
 <body>
+
+
+		
+		
 	<h1><strong>Tweet Interface</strong></h1>
 	
-		<a href="tweet.jsp" style="text-decoration: none"; ><button>Post A Tweet</button></a>
 		
-		
-			<form action="trans" method="get">
-			
+		<div id="outer">
+        	<div class="inner"><a href="tweet.jsp"><button class="Post">Post A Tweet</button></a></div>
+        	<div class="inner"><a href="followers.jsp"><button class="SeeFollowers">See Your Followers</button></a></div>
+        	
+    	</div> 
+
 				<%@page import="java.sql.DriverManager"%>
 				<%@page import="java.sql.ResultSet"%>
 				<%@page import="java.sql.Statement"%>
@@ -40,7 +46,7 @@
 
 				<td><b></b></td>
 				<td><b></b></td>
-				<td  width = '100px'><b></b></td>
+				<td  width = '80px'><b></b></td>
 				<td style="width:40%"><b></b></td>
 				
 				<%
@@ -58,7 +64,10 @@
 				
 				<td><%=resultSet.getString("content") %></td>
 				<td><%=resultSet.getString("numOfLikes") %> Likes </td>
-				<td><button class="Like">Like</button><button class="Comment" >Comment</button></td>
+				
+				
+				
+				<td><button id= "Like">Like</button><button class="Comment" >Comment</button></td>
 
 				</tr>
 				
@@ -69,14 +78,9 @@
 				e.printStackTrace();
 				}
 				%>
-				</table>	
-		
-		
-		
-		
-		
-		
+
 		<a href="userInterface.jsp"> Back to User Interface </a>
+		
 		
 </body>
 </html>
