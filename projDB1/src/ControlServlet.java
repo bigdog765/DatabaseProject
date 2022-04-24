@@ -62,6 +62,14 @@ public class ControlServlet extends HttpServlet {
             	searchUser(request, response);
             	
             	break;
+            case "/LikeTweet":
+            	System.out.println("The action is: Liked a tweet");
+            	LikeATweet(request, response);
+            	break;
+            case "/CommentTweet":
+            	System.out.println("The action is: Liked a tweet");
+            	commentTweet(request, response);
+            	break;
             
             case "/buyPPS":
             	System.out.println("The action is: buy from root");
@@ -94,7 +102,16 @@ public class ControlServlet extends HttpServlet {
         System.out.println("doGet finished: 111111111111111111111111111111111111");
     }
     
-
+    private void LikeATweet(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	request.setAttribute("LikeResult", "You have liked this post");
+    	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
+    }
+    private void commentTweet(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	request.setAttribute("LikeResult", "You have liked this post");
+    	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
+    }
     
     
     

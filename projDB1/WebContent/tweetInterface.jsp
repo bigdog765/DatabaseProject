@@ -56,7 +56,9 @@
 				String sql ="SELECT * FROM Post";
 				
 				resultSet = statement.executeQuery(sql);
+				
 				while(resultSet.next()){
+					
 				%>
 				<tr bgcolor="#add8e6" height = "100px">
 				
@@ -67,11 +69,21 @@
 				
 				
 				
-				<td><button id= "Like">Like</button><button class="Comment" >Comment</button></td>
-
+				<td>
+					<form action="LikeTweet" method="get">				
+						<button id= "Like" type = 'submit'>Like</button>
+					</form>
+					<form action="CommentTweet" method="get">	
+						<button class="Comment" type = 'submit'>Comment</button>
+					</form>
+					
+				</td>
+				
+				
 				</tr>
 				
 				<% 
+					
 				}
 				
 				} catch (Exception e) {
@@ -80,6 +92,7 @@
 				%>
 
 		<a href="userInterface.jsp"> Back to User Interface </a>
+		<h3 style = "text-align:center"> ${LikeResult}</h3>
 		
 		
 </body>
