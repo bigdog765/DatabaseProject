@@ -62,7 +62,9 @@
 				%>
 				<tr bgcolor="#add8e6" height = "100px">
 				
-				<td><%=resultSet.getString("Email") %><button class="Follow">Follow this user</button></td>
+				<td><%=resultSet.getString("Email") %><form action="FollowTweet" method="get">	
+				<button class="Follow" type = 'submit'>Follow this user</button>
+				</form></td>
 				
 				<td><%=resultSet.getString("content") %></td>
 				<td><%=resultSet.getString("numOfLikes") %> Likes </td>
@@ -93,6 +95,7 @@
 
 		<a href="userInterface.jsp"> Back to User Interface </a>
 		<h3 style = "text-align:center"> ${LikeResult}</h3>
+		<h3 style = "text-align:center"> ${FollowResult}</h3>
 		
 		
 </body>

@@ -66,9 +66,17 @@ public class ControlServlet extends HttpServlet {
             	System.out.println("The action is: Liked a tweet");
             	LikeATweet(request, response);
             	break;
+            case "/FollowTweet":
+            	System.out.println("The action is: follow a user");
+            	followTweet(request, response);
+            	break;
             case "/CommentTweet":
-            	System.out.println("The action is: Liked a tweet");
+            	System.out.println("The action is: comment on a post");
             	commentTweet(request, response);
+            	break;
+            case "/PostComment":
+            	System.out.println("The action is: comment on a post");
+            	postComment(request, response);
             	break;
             
             case "/buyPPS":
@@ -107,10 +115,22 @@ public class ControlServlet extends HttpServlet {
     	request.setAttribute("LikeResult", "You have liked this post");
     	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
     }
+    private void followTweet(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	request.setAttribute("FollowResult", "You are now following this user");
+    	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
+    }
     private void commentTweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
-    	request.setAttribute("LikeResult", "You have liked this post");
-    	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
+    	
+    	request.getRequestDispatcher("comment.jsp").forward(request, response);
+    }
+    private void postComment(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	
+    	String comment = request.getParameter("comment");
+    	request.setAttribute("CommentResult", "Comment was posted!");
+    	request.getRequestDispatcher("comment.jsp").forward(request, response);
     }
     
     
