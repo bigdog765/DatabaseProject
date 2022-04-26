@@ -14,8 +14,10 @@
     <p>
          Tweet: <input type="text" placeholder="Write your Tweet here" name="Tweet"> <br>
     </p>
-	<form action="trans" method="get">
+	<form action="Post" method="get">
 			<button type="submit" value="Post">Post</button><br>
 			<a href="tweetInterface.jsp"> Back to Tweet Interface </a>
+			<h3 style = "text-align:center"> ${TweetResult}</h3>
+	</form>
 </body>
 </html>

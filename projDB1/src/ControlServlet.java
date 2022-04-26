@@ -71,14 +71,25 @@ public class ControlServlet extends HttpServlet {
             	followTweet(request, response);
             	break;
             case "/CommentTweet":
-            	System.out.println("The action is: comment on a post");
+            	System.out.println("The action is: go to comment page");
             	commentTweet(request, response);
             	break;
             case "/PostComment":
             	System.out.println("The action is: comment on a post");
             	postComment(request, response);
             	break;
-            
+            case "/Post":
+            	System.out.println("The action is: post a tweet");
+            	post(request, response);
+            	break;
+            case "/tipUser":
+            	System.out.println("The action is: tip a user");
+            	userTip(request, response);
+            	break;
+            case "/Tip":
+            	System.out.println("The action is: tip a user");
+            	tip(request, response);
+            	break;
             case "/buyPPS":
             	System.out.println("The action is: buy from root");
             	buy(request, response);
@@ -112,28 +123,41 @@ public class ControlServlet extends HttpServlet {
     
     private void LikeATweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
-    	request.setAttribute("LikeResult", "You have liked this post");
+    	request.setAttribute("LikeResult", "Post Liked");
     	
     	String postLiked =request.getParameter("like");
-    	//int IpostLiked = Integer.parseInt(postLiked);
     	String liker = (String)ses.getAttribute("user");
     	
         System.out.print(postLiked);
         
-        //user.dao(int) -> modify post & liked table 
-        UserDAO.userLike(postLiked, liker);
+        if(ses.getAttribute(postLiked) == null) {
+        	UserDAO.userLike(postLiked, liker);
+            ses.setAttribute(postLiked, true);
+        }
+        else request.setAttribute("LikeResult", "You have already liked this post");
+        
+
+        
     	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
     }
     private void followTweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	request.setAttribute("FollowResult", "You are now following this user");
     	
-    	String postLiked =request.getParameter("follow");
-    	//int IpostLiked = Integer.parseInt(postLiked);
-    	String liker = (String)ses.getAttribute("user");
-    	System.out.print(postLiked);
+    	String followeePostID =request.getParameter("follow");
     	
-    	UserDAO.userFollow(postLiked, liker);
+    	String liker = (String)ses.getAttribute("user");
+    	System.out.print(followeePostID);
+    	
+    	if(ses.getAttribute(followeePostID) == null) {
+    		UserDAO.userFollow(followeePostID, liker);
+            ses.setAttribute(followeePostID, true);
+        }
+        else request.setAttribute("FollowResult", "You are already following this user");
+    	
+    	
+    	
+    	
     	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
     }
     private void commentTweet(HttpServletRequest request, HttpServletResponse response)
@@ -148,6 +172,49 @@ public class ControlServlet extends HttpServlet {
     	request.setAttribute("CommentResult", "Comment was posted!");
     	request.getRequestDispatcher("comment.jsp").forward(request, response);
     }
+    private void post(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	
+    	String post = request.getParameter("Tweet");
+    	request.setAttribute("TweetResult", "Tweet was posted!");
+    	request.getRequestDispatcher("tweet.jsp").forward(request, response);
+    }
+    private void userTip(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	
+    	String userTipped = request.getParameter("tip");
+    	System.out.println(userTipped);
+    	ses.setAttribute("userTipped", userTipped);
+    	
+    	request.getRequestDispatcher("tip.jsp").forward(request, response);
+    }
+    private void tip(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException, ServletException  {
+    	String user = (String)ses.getAttribute("user");
+    	
+    	
+    	//get users balance in dollars
+    	double balance = UserDAO.buy(user);
+
+    	String tipAmount = request.getParameter("tipAmount");
+    	int s = Integer.parseInt(tipAmount);
+    	System.out.println(s);
+    	if(balance == 0 || (double)s > balance) {
+        	request.setAttribute("resultTip", "Sorry, insufficent funds");
+        	System.out.println("You dont have enough money");
+        }
+    	else {
+    		//insert this transaction into the database
+    		String p = (String)ses.getAttribute("userTipped");
+    		String id = String.format("%x",(int)(Math.random()*10000000)); 
+    		
+    		UserDAO.insertTransaction(user,p, "-time-",s, s/100,"tip",id);
+    		DecimalFormat df = new DecimalFormat();
+    		df.setMaximumFractionDigits(2);
+    		request.setAttribute("resultTip", "Thanks for tipping " + s + " shares of PPS to " + p);
+    	}
+    	
+    	request.getRequestDispatcher("tip.jsp").forward(request, response);
+	}
     
     
     

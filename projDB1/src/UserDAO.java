@@ -377,9 +377,23 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
 	}
 public void userFollow(String id, String liker) throws SQLException{
 		
-		//String mod1 = "INSERT Follows SET numOfLikes = numOfLikes + 1 WHERE postID = \""+ id +"\"";
-		
-		//String ins = "insert into Follows(followerEmail, followeeEmail) values";
+	//get follower email from postId
+	String p = new String();
+	String us = "SELECT Email FROM post WHERE postID = \""+ id+"\"";
+	statement = (Statement) connect.createStatement();
+	ResultSet resultSet = statement.executeQuery(us);
+	while (resultSet.next()) {
+    	p = resultSet.getString("Email");
+    	
+    }
+	
+	String ins = "insert into Follows(followerEmail, followeeEmail) values";	
+	String f1 = ins +"(\""+ liker +"\", \""+p+"\")";
+	
+	statement.executeUpdate(f1);
+	
+	resultSet.close();
+    statement.close();
 		//String f1 = ins + 
 		//preparedStatement = (PreparedStatement) connect.prepareStatement(mod1);
     	//preparedStatement.executeUpdate();
