@@ -77,13 +77,20 @@
 				
 				<td>
 					<% array[i] = i;%>
-					<form action="LikeTweet" method="get">				
+					<form action="LikeTweet" method="get" onsubmit='disableButton()'>				
 						<%out.print("<button type='submit' id= 'like' name= 'like' value='" + resultSet.getString("postID") + "'>Like</button>");%>
 					</form>
 					<form action="CommentTweet" method="get">	
 						<button class="Comment" type = 'submit'>Comment</button>
 					</form>
 					
+					<script>
+    					function disableButton() {
+        				var like = document.getElementById('liked');
+        				like.disabled = true;
+       			 			like.innerText = 'Liked'
+    					}
+					</script>
 				</td>
 				
 				
