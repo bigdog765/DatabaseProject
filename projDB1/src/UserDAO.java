@@ -362,5 +362,31 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
         statement.close();
 		disconnect();
     }
+
+	public void userLike(String id, String liker) throws SQLException{
+		
+		String mod1 = "UPDATE Post SET numOfLikes = numOfLikes + 1 WHERE postID = \""+ id +"\"";
+		preparedStatement = (PreparedStatement) connect.prepareStatement(mod1);
+    	preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
+    	
+        
+		//disconnect();
+		
+	}
+public void userFollow(String id, String liker) throws SQLException{
+		
+		//String mod1 = "INSERT Follows SET numOfLikes = numOfLikes + 1 WHERE postID = \""+ id +"\"";
+		//insert into Follows(followerEmail, followeeEmail) values
+		//preparedStatement = (PreparedStatement) connect.prepareStatement(mod1);
+    	//preparedStatement.executeUpdate();
+		//preparedStatement.close();
+		
+    	
+        
+		//disconnect();
+		
+	}
     
 }

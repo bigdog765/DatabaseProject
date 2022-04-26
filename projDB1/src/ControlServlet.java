@@ -113,11 +113,27 @@ public class ControlServlet extends HttpServlet {
     private void LikeATweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	request.setAttribute("LikeResult", "You have liked this post");
+    	
+    	String postLiked =request.getParameter("like");
+    	//int IpostLiked = Integer.parseInt(postLiked);
+    	String liker = (String)ses.getAttribute("user");
+    	
+        System.out.print(postLiked);
+        
+        //user.dao(int) -> modify post & liked table 
+        UserDAO.userLike(postLiked, liker);
     	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
     }
     private void followTweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	request.setAttribute("FollowResult", "You are now following this user");
+    	
+    	String postLiked =request.getParameter("follow");
+    	//int IpostLiked = Integer.parseInt(postLiked);
+    	String liker = (String)ses.getAttribute("user");
+    	System.out.print(postLiked);
+    	
+    	UserDAO.userFollow(postLiked, liker);
     	request.getRequestDispatcher("tweetInterface.jsp").forward(request, response);
     }
     private void commentTweet(HttpServletRequest request, HttpServletResponse response)

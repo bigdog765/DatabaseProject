@@ -28,6 +28,7 @@
 				
 				<%
 				String driverName = "com.mysql.jdbc.Driver";
+				String name = (String)session.getAttribute("user"); 
 				
 				try {
 				Class.forName(driverName);
@@ -57,13 +58,16 @@
 				
 				resultSet = statement.executeQuery(sql);
 				
+				int[] array = new int[100];
+				int i = 0;
 				while(resultSet.next()){
 					
 				%>
 				<tr bgcolor="#add8e6" height = "100px">
 				
-				<td><%=resultSet.getString("Email") %><form action="FollowTweet" method="get">	
-				<button class="Follow" type = 'submit'>Follow this user</button>
+				<td><%=resultSet.getString("Email") %>
+				<form action="FollowTweet" method="get">	
+				<%out.print("<button class='Follow' type = 'submit' name= 'follow' value='" + resultSet.getString("postID") + "'>Follow this user</button>");%>
 				</form></td>
 				
 				<td><%=resultSet.getString("content") %></td>
@@ -72,8 +76,9 @@
 				
 				
 				<td>
+					<% array[i] = i;%>
 					<form action="LikeTweet" method="get">				
-						<button id= "Like" type = 'submit'>Like</button>
+						<%out.print("<button type='submit' id= 'like' name= 'like' value='" + resultSet.getString("postID") + "'>Like</button>");%>
 					</form>
 					<form action="CommentTweet" method="get">	
 						<button class="Comment" type = 'submit'>Comment</button>
@@ -84,7 +89,7 @@
 				
 				</tr>
 				
-				<% 
+				<% i++;
 					
 				}
 				
