@@ -378,7 +378,9 @@ public boolean checkForPassword(String userEmail, String userPassword) throws SQ
 public void userFollow(String id, String liker) throws SQLException{
 		
 		//String mod1 = "INSERT Follows SET numOfLikes = numOfLikes + 1 WHERE postID = \""+ id +"\"";
-		//insert into Follows(followerEmail, followeeEmail) values
+		
+		//String ins = "insert into Follows(followerEmail, followeeEmail) values";
+		//String f1 = ins + 
 		//preparedStatement = (PreparedStatement) connect.prepareStatement(mod1);
     	//preparedStatement.executeUpdate();
 		//preparedStatement.close();
