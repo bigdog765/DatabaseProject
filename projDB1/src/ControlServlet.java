@@ -109,6 +109,11 @@ public class ControlServlet extends HttpServlet {
             	   insertTables(request, response);
             	   insertTuples(request, response);
                 break;
+            //part3
+            case "/bigInfluencers":
+            	System.out.println("The action is: list big influencers");
+            	sell(request, response);
+            	break;
             
             default:
                 System.out.println("Not sure which action, we will treat it as the list action");
