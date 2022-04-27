@@ -18,9 +18,18 @@
 	
 	<form action="bigInfluencers" method="get">
 		<button type="submit" value="Big Influencers">List Big Influencers</button><br>
+		<h3 style = "color: green"> ${bI}</h3>
 	</form>
 	<form action="bigWhales" method="get">
 		<button type="submit" value="Big Whales">List Big Whales</button><br>
+		
+		
+		<!-- QUERY 2
+		select P.email, P.PPSAmount from user P where P.PPSAmount = (select max(PPSAmount)from (SELECT Email, PPSAmount FROM user where not email = 'root')as a1); -->
+		
+		
+		
+		
 	</form>
 	<form action="frequentBuyers" method="get">
 		<button type="submit" value="Frequent Buyers">List Frequent Buyers</button><br>

@@ -403,6 +403,22 @@ public void userFollow(String id, String liker) throws SQLException{
         
 		//disconnect();
 		
-	}
-    
 }
+ 
+public String bI() throws SQLException{
+	String result = new String();
+	String bI = "SELECT followerEmail, max(CountFollowers) from (SELECT followerEmail, count(followeeEmail) CountFollowers FROM follows group by followerEmail) as myalias";
+	statement = (Statement) connect.createStatement();
+	ResultSet resultSet = statement.executeQuery(bI);
+	while (resultSet.next()) {
+    	result = resultSet.getString("followerEmail");
+    	
+    }
+	resultSet.close();
+    statement.close();
+    return result;
+}
+}
+
+
+

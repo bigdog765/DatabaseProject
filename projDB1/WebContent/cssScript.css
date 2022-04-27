@@ -20,6 +20,9 @@ h2{
  background-color: #2F4F4F;
  color: white;
 }
+h3{
+	text-align: center;
+}
 
 
 input[type=text], input[type=password] {

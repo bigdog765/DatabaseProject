@@ -171,7 +171,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 		String us3 = userInsert +"(\"yu33@outlook.com\", \"pass2212\", \"Jen\",\"Adler\",\"19\",\"46211\",\"1000\",\"0\")";
 		String us4 = userInsert +"(\"jen_t@gmail.com\", \"pass10001000\", \"Kathy\",\"Ford\",\"23\",\"33236\",\"1000\",\"0\")";
 		String us5 = userInsert +"(\"hy88@yahoo.com\", \"pass100062\", \"Ted\",\"Pierce\",\"88\",\"27269\",\"1000\",\"0\")";
-		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"46211\",\"1000\",\"0\")";
+		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"46211\",\"1000\",\"200\")";
 		String us7 = userInsert +"(\"gary88@gmail.com\", \"pass988\", \"Gary\",\"Hayes\",\"41\",\"48206\",\"1000\",\"0\")";
 		String us8 = userInsert +"(\"johndata@outlook.com\", \"pass321\", \"John\",\"Wilson\",\"27\",\"33743\",\"1000\",\"0\")";
 		String us9 = userInsert +"(\"sql123@gmail.com\", \"pass12\", \"Jesus\",\"Christ\",\"96\",\"46211\",\"1000\",\"0\")";
@@ -226,6 +226,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 		String f8 = followsInsert +"(\"johndata@outlook.com\", \"johndata@outlook.com\")";
 		String f9 = followsInsert +"(\"sql123@gmail.com\", \"hy88@yahoo.com\")";
 		String f10 = followsInsert +"(\"klkg6543@wayne.edu\", \"jen_t@gmail.com\")";
+		String f11 = followsInsert +"(\"pf@gmail.com\", \"gary88@gmail.com\")";
 		  statement.executeUpdate(f1);
 	      statement.executeUpdate(f2);
 	      statement.executeUpdate(f3);
@@ -236,6 +237,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(f8);
 	      statement.executeUpdate(f9);
 	      statement.executeUpdate(f10);
+	      statement.executeUpdate(f11);
 			      
       String postInsert = "insert into Post(Email, type, numOfLikes, content, postID) values ";
 	    

@@ -111,8 +111,7 @@ public class ControlServlet extends HttpServlet {
                 break;
             //part3
             case "/bigInfluencers":
-            	System.out.println("The action is: list big influencers");
-            	sell(request, response);
+            	bigInfluencers(request, response);
             	break;
             
             default:
@@ -126,6 +125,15 @@ public class ControlServlet extends HttpServlet {
         System.out.println("doGet finished: 111111111111111111111111111111111111");
     }
     
+    
+    
+    private void bigInfluencers(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	String bI = UserDAO.bI();
+    	request.setAttribute("bI", "The user with the most followers is: " + bI);
+    	
+    	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
+    }
     private void LikeATweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	request.setAttribute("LikeResult", "Post Liked");
