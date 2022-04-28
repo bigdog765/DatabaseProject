@@ -113,6 +113,21 @@ public class ControlServlet extends HttpServlet {
             case "/bigInfluencers":
             	bigInfluencers(request, response);
             	break;
+            case "/bigWhales":
+            	bigWhales(request, response);
+            	break;
+            case "/frequentBuyers":
+            	frequentBuyers(request, response);
+            	break;
+            case "/goodFollowers":
+            	goodFollowers(request, response);
+            	break;
+            case "/diamondHands":
+            	diamondHands(request, response);
+            	break;
+            case "/commonFollowers":
+            	commonFollowers(request, response);
+            	break;
             
             default:
                 System.out.println("Not sure which action, we will treat it as the list action");
@@ -126,7 +141,7 @@ public class ControlServlet extends HttpServlet {
     }
     
     
-    
+    //PART 3
     private void bigInfluencers(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	String bI = UserDAO.bI();
@@ -134,6 +149,55 @@ public class ControlServlet extends HttpServlet {
     	
     	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
     }
+    private void bigWhales(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	String bW = UserDAO.bW();
+    	request.setAttribute("bW", "The user with the largest PPS balance is: " + bW);
+    	
+    	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
+    }
+    private void frequentBuyers(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	String fB = UserDAO.fB();
+    	request.setAttribute("fB", "The user who purchases the most frequently: " + fB);
+    	
+    	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
+    }
+    private void goodFollowers(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	String gF = UserDAO.gF();
+    	request.setAttribute("gF", "The user who purchases the most frequently: " + gF);
+    	
+    	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
+    }
+    private void diamondHands(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	
+    	ArrayList<String> dH = new ArrayList<String>();
+    	dH = UserDAO.dH();
+    	request.setAttribute("dH", "The users who have never sold pps: " + dH);
+    	
+    	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
+    }
+    private void commonFollowers(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	
+    	String user1 =request.getParameter("dd1");
+    	String user2 =request.getParameter("dd2");
+    	
+    	System.out.print(user1);
+    	System.out.print(user2);
+    	
+    	//request.setAttribute("dH", "The users who have never sold pps: " + dH);
+    	
+    	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
+    }
+    
+    
+    
+    
+    
+    
     private void LikeATweet(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	request.setAttribute("LikeResult", "Post Liked");

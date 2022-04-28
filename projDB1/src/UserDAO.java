@@ -405,6 +405,7 @@ public void userFollow(String id, String liker) throws SQLException{
 		
 }
  
+//PAART3
 public String bI() throws SQLException{
 	String result = new String();
 	String bI = "SELECT followerEmail, max(CountFollowers) from (SELECT followerEmail, count(followeeEmail) CountFollowers FROM follows group by followerEmail) as myalias";
@@ -417,6 +418,60 @@ public String bI() throws SQLException{
 	resultSet.close();
     statement.close();
     return result;
+}
+public String bW() throws SQLException{
+	String result = new String();
+	String bW = "select P.email, P.PPSAmount from user P where P.PPSAmount = (select max(PPSAmount)from (SELECT Email, PPSAmount FROM user where not email = 'root')as a1);";
+	statement = (Statement) connect.createStatement();
+	ResultSet resultSet = statement.executeQuery(bW);
+	while (resultSet.next()) {
+    	result = resultSet.getString("P.email");
+    	
+    }
+	resultSet.close();
+    statement.close();
+    return result;
+}
+public String fB() throws SQLException{
+	String result = new String();
+	String fB = "select T.ReceiverEmail, count(T.SenderEmail) from transactions T where typeofTrans = 'buy' group by T.ReceiverEmail having count(T.SenderEmail) = ( select max(C) from (select ReceiverEmail, count(SenderEmail) as C from transactions where typeofTrans = 'buy' group by ReceiverEmail) as a1);";
+	statement = (Statement) connect.createStatement();
+	ResultSet resultSet = statement.executeQuery(fB);
+	while (resultSet.next()) {
+    	result = resultSet.getString("T.ReceiverEmail");
+    	
+    }
+	resultSet.close();
+    statement.close();
+    return result;
+}
+public String gF() throws SQLException{
+	String result = new String();
+	String gF = "(select followeeEmail from follows F, User U where F.followerEmail = U.Email group by followeeEmail and U.Email in (select Email from user where Email != 'root'));";
+	statement = (Statement) connect.createStatement();
+	ResultSet resultSet = statement.executeQuery(gF);
+	while (resultSet.next()) {
+    	result = resultSet.getString("followeeEmail");
+    	
+    }
+	resultSet.close();
+    statement.close();
+    return result;
+}
+public ArrayList<String> dH() throws SQLException{
+	
+	ArrayList<String> arrResult = new ArrayList<String>();
+	
+	String dH = "select Email from user where Email not in (select senderEmail from transactions where typeofTrans = 'sell' or senderEmail = 'root');";
+	statement = (Statement) connect.createStatement();
+	ResultSet resultSet = statement.executeQuery(dH);
+	while (resultSet.next()) {
+		arrResult.add(resultSet.getString("Email"));
+    	
+    }
+	resultSet.close();
+    statement.close();
+    return arrResult;
 }
 }
 

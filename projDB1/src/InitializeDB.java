@@ -173,7 +173,7 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 		String us5 = userInsert +"(\"hy88@yahoo.com\", \"pass100062\", \"Ted\",\"Pierce\",\"88\",\"27269\",\"1000\",\"0\")";
 		String us6 = userInsert +"(\"emp555@wayne.edu\", \"pass55\", \"Andy\",\"Gray\",\"18\",\"46211\",\"1000\",\"200\")";
 		String us7 = userInsert +"(\"gary88@gmail.com\", \"pass988\", \"Gary\",\"Hayes\",\"41\",\"48206\",\"1000\",\"0\")";
-		String us8 = userInsert +"(\"johndata@outlook.com\", \"pass321\", \"John\",\"Wilson\",\"27\",\"33743\",\"1000\",\"0\")";
+		String us8 = userInsert +"(\"johndata@outlook.com\", \"pass321\", \"John\",\"Wilson\",\"27\",\"33743\",\"1000\",\"186\")";
 		String us9 = userInsert +"(\"sql123@gmail.com\", \"pass12\", \"Jesus\",\"Christ\",\"96\",\"46211\",\"1000\",\"0\")";
 		String us10 = userInsert +"(\"klkg6543@wayne.edu\", \"pass46\", \"Megan\",\"Miller\",\"62\",\"81213\",\"1000\",\"0\")";
 		  statement.executeUpdate(us0);
@@ -191,16 +191,18 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      
 	    String transactionInsert = "insert into Transactions(SenderEmail, ReceiverEmail, timeOfTrans, PPSAmount, USDAmount,typeofTrans, transactionID) values ";
 	    
-	    String tr1 = transactionInsert +"(\"pf@gmail.com\", \"hy88@yahoo.com\", \"2022-03-8 05:45:22\", \"3\", \"120\",\"buy\",\"59150e43468fea17\")";
-		String tr2 = transactionInsert +"(\"ab34@gmail.com\", \"yu33@outlook.com\", \"2022-03-8 04:45:22\", \"10\", \"88\",\"buy\",\"d3ff8769940ec23f\")";
-		String tr3 = transactionInsert +"(\"yu33@outlook.com\", \"johndata@outlook.com\", \"2022-03-8 05:48:22\",\"20\", \"3\",\"sell\",\"21a31d3c7eb7905c\")";
-		String tr4 = transactionInsert +"(\"jen_t@gmail.com\",\"hy88@yahoo.com\", \"2022-03-8 02:45:22\", \"12\", \"7\",\"buy\",\"9782f31962d483a4\")";
-		String tr5 = transactionInsert +"(\"hy88@yahoo.com\", \"gary88@gmail.com\", \"2022-03-8 05:33:22\",\"15\", \"88\",\"sell\",\"c967a86fcf1e1528\")";
-		String tr6 = transactionInsert +"(\"emp555@wayne.edu\", \"sql123@gmail.com\",\"2022-03-8 05:59:22\", \"9\", \"18\",\"buy\",\"b4a0b4cf6cbc1a40\")";
-		String tr7 = transactionInsert +"(\"gary88@gmail.com\", \"hy88@yahoo.com\", \"2022-03-8 05:11:22\", \"7\", \"410\",\"buy\",\"7f3a73773836c2c2\")";
+	    String tr1 = transactionInsert +"(\"root\", \"hy88@yahoo.com\", \"2022-03-8 05:45:22\", \"3\", \"120\",\"buy\",\"59150e43468fea17\")";
+		String tr2 = transactionInsert +"(\"root\", \"yu33@outlook.com\", \"2022-03-8 04:45:22\", \"10\", \"88\",\"buy\",\"d3ff8769940ec23f\")";
+		String tr3 = transactionInsert +"(\"yu33@outlook.com\", \"root\", \"2022-03-8 05:48:22\",\"20\", \"3\",\"sell\",\"21a31d3c7eb7905c\")";
+		String tr4 = transactionInsert +"(\"root\",\"hy88@yahoo.com\", \"2022-03-8 02:45:22\", \"12\", \"7\",\"buy\",\"9782f31962d483a4\")";
+		String tr5 = transactionInsert +"(\"hy88@yahoo.com\", \"root\", \"2022-03-8 05:33:22\",\"15\", \"88\",\"sell\",\"c967a86fcf1e1528\")";
+		String tr6 = transactionInsert +"(\"root\", \"sql123@gmail.com\",\"2022-03-8 05:59:22\", \"9\", \"18\",\"buy\",\"b4a0b4cf6cbc1a40\")";
+		String tr7 = transactionInsert +"(\"root\", \"hy88@yahoo.com\", \"2022-03-8 05:11:22\", \"7\", \"410\",\"buy\",\"7f3a73773836c2c2\")";
 		String tr8 = transactionInsert +"(\"johndata@outlook.com\", \"hy88@yahoo.com\", \"2022-03-8 02:45:22\", \"16\", \"8\",\"tip\",\"ed34a8074b039c9d\")";
-		String tr9 = transactionInsert +"(\"sql123@gmail.com\", \"jen_t@gmail.com\", \"2022-03-8 08:45:22\", \"11\", \"55\",\"buy\",\"d5cba5706d657e74\")";
-		String tr10 = transactionInsert +"(\"klkg6543@wayne.edu\", \"ab34@gmail.com\", \"2022-03-8 05:16:22\", \"18\", \"72\",\"buy\",\"9ad71db2e2ecd5f7\")";
+		String tr9 = transactionInsert +"(\"root\", \"jen_t@gmail.com\", \"2022-03-8 08:45:22\", \"11\", \"55\",\"buy\",\"d5cba5706d657e74\")";
+		String tr10 = transactionInsert +"(\"root\", \"ab34@gmail.com\", \"2022-03-8 05:16:22\", \"18\", \"72\",\"buy\",\"9ad71db2e2ecd5f7\")";
+		String tr11 = transactionInsert +"(\"root\", \"pf@gmail.com\", \"2022-03-8 06:16:52\", \"284\", \"23\",\"buy\",\"1ax7gdb2e2eqd5fm\")";
+		
 		  statement.executeUpdate(tr1);
 	      statement.executeUpdate(tr2);
 	      statement.executeUpdate(tr3);
@@ -211,13 +213,14 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(tr8);
 	      statement.executeUpdate(tr9);
 	      statement.executeUpdate(tr10);
+	      statement.executeUpdate(tr11);
+	      
 	      
 	      
 		    
       String followsInsert = "insert into Follows(followerEmail, followeeEmail) values ";
 	    
 	    String f1 = followsInsert +"(\"pf@gmail.com\", \"ab34@gmail.com\")";
-		String f2 = followsInsert +"(\"ab34@gmail.com\", \"jen_t@gmail.com\")";
 		String f3 = followsInsert +"(\"yu33@outlook.com\", \"hy88@yahoo.com\")";
 		String f4 = followsInsert +"(\"jen_t@gmail.com\", \"sql123@gmail.com\")";
 		String f5 = followsInsert +"(\"hy88@yahoo.com\", \"gary88@gmail.com\")";
@@ -225,10 +228,23 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 		String f7 = followsInsert +"(\"gary88@gmail.com\", \"yu33@outlook.com\")";
 		String f8 = followsInsert +"(\"johndata@outlook.com\", \"johndata@outlook.com\")";
 		String f9 = followsInsert +"(\"sql123@gmail.com\", \"hy88@yahoo.com\")";
-		String f10 = followsInsert +"(\"klkg6543@wayne.edu\", \"jen_t@gmail.com\")";
+		
 		String f11 = followsInsert +"(\"pf@gmail.com\", \"gary88@gmail.com\")";
+		
+		//jen_t follows everybody
+		String f12 = followsInsert +"(\"pf@gmail.com\", \"jen_t@gmail.com\")";
+		String f13 = followsInsert +"(\"ab34@gmail.com\", \"jen_t@gmail.com\")";
+		String f14 = followsInsert +"(\"yu33@outlook.com\", \"jen_t@gmail.com\")";
+		String f15 = followsInsert +"(\"hy88@yahoo.com\", \"jen_t@gmail.com\")";
+		String f20 = followsInsert +"(\"emp555@wayne.edu\", \"jen_t@gmail.com\")";
+		String f16 = followsInsert +"(\"gary88@gmail.com\", \"jen_t@gmail.com\")";
+		String f17 = followsInsert +"(\"johndata@outlook.com\", \"jen_t@gmail.com\")";
+		String f18 = followsInsert +"(\"klkg6543@wayne.edu\", \"jen_t@gmail.com\")";
+		String f19 = followsInsert +"(\"sql123@gmail.com\", \"jen_t@gmail.com\")";
+		
+		
 		  statement.executeUpdate(f1);
-	      statement.executeUpdate(f2);
+	      
 	      statement.executeUpdate(f3);
 	      statement.executeUpdate(f4);
 	      statement.executeUpdate(f5);
@@ -236,8 +252,17 @@ public void insertTuples() throws SQLException, IOException, ServletException {
 	      statement.executeUpdate(f7);
 	      statement.executeUpdate(f8);
 	      statement.executeUpdate(f9);
-	      statement.executeUpdate(f10);
+	      
 	      statement.executeUpdate(f11);
+	      statement.executeUpdate(f12);
+	      statement.executeUpdate(f13);
+	      statement.executeUpdate(f14);
+	      statement.executeUpdate(f15);
+	      statement.executeUpdate(f16);
+	      statement.executeUpdate(f17);
+	      statement.executeUpdate(f18);
+	      statement.executeUpdate(f19);
+	      statement.executeUpdate(f20);
 			      
       String postInsert = "insert into Post(Email, type, numOfLikes, content, postID) values ";
 	    
