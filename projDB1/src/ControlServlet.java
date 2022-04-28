@@ -166,7 +166,7 @@ public class ControlServlet extends HttpServlet {
     private void goodFollowers(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	String gF = UserDAO.gF();
-    	request.setAttribute("gF", "The user who purchases the most frequently: " + gF);
+    	request.setAttribute("gF", "Users who follow every other user besides root: " + gF);
     	
     	request.getRequestDispatcher("rootInterface.jsp").forward(request, response);
     }
